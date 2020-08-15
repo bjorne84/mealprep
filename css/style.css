@@ -1,0 +1,1042 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* imort av fonts*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+/* RESET AV CSS-INSTÄLLNINGAR, hämtad från https://dev.to/hankchizljaw/a-modern-css-reset-6p3 */
+
+/* Box sizing rules */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Remove default padding */
+
+/*
+ul[class], ol[class] {
+    padding: 0;
+}*/
+
+/* Remove default margin, kanske lägga till a också? */
+
+body, h1, h2, h3, h4, p, a, ul[class], ol[class], li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+}
+
+/* Set core body defaults */
+
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    /*text-rendering: optimizeSpeed; denna egenskap validerar ej*/
+    line-height: 1.5;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+
+/*
+ul[class], ol[class] {
+    list-style: none;
+}*/
+
+/* A elements that don't have a class get default styles 
+Validerar ej: Egenskap text-decoration-skip-ink finns inte : auto */
+
+/*a:not([class]) {
+  text-decoration-skip-ink: auto;
+}*/
+
+/* Make images easier to work with */
+
+img, picture, source {
+    max-width: 100%;
+    display: block;
+    border-radius: 2px;
+}
+
+/* Natural flow and rhythm in articles by default */
+
+/*article>*+* {
+    margin-top: 1em;
+}*/
+
+/* Inherit fonts for inputs and buttons */
+
+input, button, textarea, select {
+    font: inherit;
+}
+
+/* Plockar bort padding på vänster sida för listor*/
+
+ul {
+    padding-left: 0;
+}
+
+/* ------------------END CLEARING OF SETTINGS ---------------------------------------*/
+
+/* ALLMÄNNA INSTÄLLNINGAR FÖR HELA SIDAN*/
+
+/* Sätter font-size till 62.5 % vilket innebär att sätter man 
+sedan texten i ett p-element till 1.6 rem = 16 px
+då 62.5 % av 16px som är standardinställningen är 10 px*/
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    padding: 0;
+    background-color: #F6F6F6;
+    text-align: left;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #222120;
+    font-size: 1.6rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* *************************************************
+***************     FONTS     ***********************
+***************************************************/
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #c40a60;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.3;
+    text-align: center;
+}
+
+h2 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #2D2929;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+h3 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #178f3f;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+/* Paragraf*/
+
+p {
+    font-family: 'Roboto', sans-serif;
+    color: #3B2727;
+    font-size: 1.4rem;
+    line-height: 2.5rem;
+}
+
+.pbold {
+    font-weight: bold;
+}
+
+/* Används för att skriva ut felmeddelanden*/
+
+.pError {
+    color: #ad040c;
+    font-weight: bold;
+}
+
+/* Text for info of when a post was created and by who,
+different font compared to other p-elements*/
+
+.pCreated {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+li {
+    font-family: 'Roboto', sans-serif;
+    color: #6A645D;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    font-weight: bold;
+}
+
+/* Länkar*/
+
+a {
+    font-family: 'Roboto', sans-serif;
+    color: #108EB7;
+    font-size: 2rem;
+    text-decoration: underline;
+}
+
+a :hover {
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+/* footertext och dess länkar*/
+
+.afoot {
+    font-family: 'Roboto', sans-serif;
+    color: #F6F4F2;
+    font-size: 2rem;
+}
+
+.afoot :hover {
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.pfoot {
+    font-family: 'Roboto', sans-serif;
+    color: #F6F4F2;
+    font-size: 2rem;
+}
+
+.pfoot :hover {
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+/* span klass bold*/
+
+.bold {
+    font-weight: bold;
+}
+
+/* *************************************************
+***************     HEADER     ***********************
+***************************************************/
+
+header {
+    background-color: #434444;
+    min-height: 80px;
+    box-shadow: 0px 2px 7px 2px #011c24;
+    position: relative;
+}
+
+.headContainer {
+    width: 100%;
+    height: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    padding-top: 1em;
+}
+
+/* LOGO */
+
+.logoHolder {
+    max-width: 15em;
+    padding-left: 1em;
+}
+
+/* -----------NAV MOBILE------
+ THE SIDEBAR MENU, 
+ this menu-solution is from cssscipt.com*/
+
+.menuText {
+    color: #F6F4F2;
+    text-decoration: none;
+    line-height: 2em;
+    font-size: 2.4rem;
+}
+
+/*NAV*/
+
+.nav {
+    -webkit-transition: right 0.5s ease;
+    -moz-transition: right 0.5s ease;
+    -ms-transition: right 0.5s ease;
+    -o-transition: right 0.5s ease;
+    transition: right 0.5s ease;
+    background: #5c5e5e;
+    color: white;
+    cursor: pointer;
+    font-size: 2rem;
+    height: 100vh;
+    right: -22rem;
+    padding: 6rem 2rem 2rem 2rem;
+    position: fixed;
+    top: 0;
+    width: 22rem;
+    z-index: 1;
+}
+
+.nav.expanded {
+    right: 0;
+}
+
+.nav ul {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+/* Style & animate the hamburger trigger when the menu is opened and closed.*/
+
+.nav-toggle {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    height: 2rem;
+    right: 2rem;
+    position: fixed;
+    top: 2rem;
+    width: 3.6rem;
+    z-index: 2;
+    margin-right: 15px;
+}
+
+.nav-toggle:hover {
+    opacity: 0.8;
+}
+
+.nav-toggle .nav-toggle-bar, .nav-toggle .nav-toggle-bar::after, .nav-toggle .nav-toggle-bar::before {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    background: white;
+    content: '';
+    height: 0.4rem;
+    width: 100%;
+}
+
+.nav-toggle .nav-toggle-bar {
+    margin-top: 0;
+    box-shadow: 0px 0px 20px 10px #434444;
+}
+
+.nav-toggle .nav-toggle-bar::after {
+    margin-top: 0.8rem;
+}
+
+.nav-toggle .nav-toggle-bar::before {
+    margin-top: -0.8rem;
+}
+
+.nav-toggle.expanded .nav-toggle-bar {
+    background: transparent;
+}
+
+.nav-toggle.expanded .nav-toggle-bar::after, .nav-toggle.expanded .nav-toggle-bar::before {
+    background: white;
+    margin-top: 0;
+}
+
+.nav-toggle.expanded .nav-toggle-bar::after {
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.nav-toggle.expanded .nav-toggle-bar::before {
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+/* *************************************************
+***************     Main     ***********************
+***************************************************/
+
+main {
+    margin: 1em 0.4em;
+}
+
+/* Section that hold blog-articles
+.showBlogs {
+    margin-top: 1em;
+    margin: 1em 0.4em;
+}*/
+
+/* H1 top */
+
+#topElement {
+    padding-bottom: 0.2em;
+    margin-bottom: 0.5em;
+    border-bottom: solid 1px #d1cfcd;
+}
+
+/* Article element for each blogpost*/
+
+.blogArticle {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 2px;
+    padding: 2em 0.3em 1em 0.3em;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+    margin-top: 1em;
+}
+
+/* Div for content placed on left (desktop)*/
+
+.left-side-blog {
+    display: flex;
+    flex-direction: column;
+}
+
+/* H2 TITLE*/
+
+.blog-title {
+    padding-bottom: 0.4em;
+}
+
+/* Images in blogpost*/
+
+.blogImg {
+    max-width: 700px;
+}
+
+/* Div for info on who created the blogpost and timestamp*/
+
+.createdBlog {
+    margin-top: 3px;
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(145, 142, 142, 0.25);
+    border-radius: 1px;
+    padding-left: 0.2em;
+    margin-bottom: 0.6em;
+}
+
+.pCreated {
+    width: 50%;
+}
+
+/* Text in span*/
+
+.spanCreated {
+    padding-left: 3px;
+}
+
+.pdate {
+    text-align: right;
+    padding-right: 0.2em;
+}
+
+.right-side-blog {
+    padding-top: 1em;
+}
+
+label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+}
+
+.portions {
+    width: 3em;
+    margin-right: 2em;
+}
+
+/* Table*/
+
+.table {
+    border-collapse: collapse;
+    margin: 1em 0;
+    margin-right: 1em;
+    font-size: 0.7em;
+    min-width: 300px;
+    width: 100%;
+    overflow: hidden;
+    padding: 2em;
+    border-radius: 0.2em;
+    table-layout: auto;
+}
+
+.table tbody tr:nth-of-type(2n) {
+    background-color: #f3f3f3;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.table thead tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+/* *************************************************
+***************     ASIDE     ***********************
+***************************************************/
+
+aside {
+    background-color: #0c0c0c;
+    border-radius: 2px;
+    padding: 2em 0.3em 3em 0.5em;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+}
+
+.colorh2 {
+    color: rgb(233, 134, 4);
+    font-size: 2.4rem;
+}
+
+.aside-ul {
+    color: rgb(233, 134, 4);
+    margin-left: 1em;
+    padding-left: 1em;
+    padding-top: 1em;
+}
+
+.aside-ul a {
+    line-height: 3rem;
+    color: rgb(233, 231, 231);
+}
+
+.dark-li {
+    color: rgb(233, 134, 4);
+}
+
+/* *************************************************
+***************     Formulär ***********************
+***** Skapa användare / logga in osv  ***********************
+***************************************************/
+
+/* Klass för forumulär*/
+
+.forms {
+    max-width: 100%;
+}
+
+/* ID för formulär skapa användare*/
+
+#formCreate {
+    padding-top: 1em;
+}
+
+/* paragraf text för field*/
+
+.pfield {
+    color: #fff;
+    padding-bottom: 0.5em;
+}
+
+/* paragraf text för field*/
+
+.afield {
+    color: #fff;
+    font-size: 1.4rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    vertical-align: bottom;
+    padding-left: 2em;
+}
+
+.afield:hover {
+    font-weight: bold;
+}
+
+#field {
+    border-radius: 0.2em;
+    background-color: #615b5b;
+    color: #fff;
+    border: none;
+    padding-bottom: 1.3em;
+    padding-top: 1.5em;
+    /*box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);*/
+}
+
+/* Klass input-fält */
+
+.input {
+    border-radius: 0.2em;
+    border: none;
+    margin-bottom: 0.2em;
+    color: #464645;
+    font-size: 1.4rem;
+}
+
+.portions {
+    border-radius: 0.2em;
+}
+
+textarea {
+    border-radius: 0.2em;
+    border: none;
+}
+
+/* ID för skapa användare knapp*/
+
+#btn-create {
+    margin-top: 0.8em;
+}
+
+/* Klass knappar*/
+
+.btn {
+    color: #fff;
+    background-color: #f16334;
+    border: solid 1px #fff;
+    border-radius: 0.2em;
+    font-size: 1.3em;
+    padding: 0.3em 0.7em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn:hover {
+    background-color: #e74e1a;
+    transition: ease-in 0.5ms;
+}
+
+.btn2 {
+    font-size: 1.1em;
+    padding: 0.2em 0.5em;
+}
+
+.btn-reset {
+    background-color: #8a8685;
+    margin-left: 2em;
+}
+
+.btn-reset:hover {
+    background-color: #6d6a69;
+    transition: ease-in 0.5ms;
+}
+
+.btn-ingr {
+    margin-top: 0.6em;
+    background-color: #037737;
+    font-size: 1em;
+    padding: 0.1em 0.3em;
+}
+
+.btn-ingr:hover {
+    background-color: #035025;
+    transition: ease-in 0.5ms;
+}
+
+/* Ingredienser */
+
+.ingDiv {
+    padding-bottom: 0.4em;
+    padding-top: 0.6em;
+}
+
+.max {
+    max-width: 60px;
+    border-radius: 0.2em;
+    border: none;
+}
+
+.h3form {
+    color: aliceblue;
+    padding-bottom: 0.4em;
+    padding-top: 0.6em;
+}
+
+/* Knapp för att ladda upp bilder*/
+
+#foodImg {
+    margin-top: 0.6em;
+}
+
+.btn-wrapper {
+    margin-top: 1em;
+}
+
+/* RADERA REDIGERA INLÄGG*/
+
+.in-btn-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.8em;
+    background-color: rgb(175, 172, 168);
+    padding: 1em;
+}
+
+#btn-del {
+    margin: 0 auto;
+    background-color: #171817;
+}
+
+#btn-del:hover {
+    background-color: #393a39;
+}
+
+/* FONT-SIZE PLACEHOLDER,
+special för att styla dessa psuedo-element*/
+
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-size: 1.4rem;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    font-size: 1.4rem;
+}
+
+:-ms-input-placeholder {
+    /* IE 10+ */
+    font-size: 1.4rem;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    font-size: 1.4rem;
+}
+
+/* SECTION POST-BLOGG*/
+
+.showBlogsUser {
+    padding-top: 2em;
+}
+
+/* *************************************************
+***************     FOOTER     ***********************
+***************************************************/
+
+/* fixa flygande footer*/
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#content-wrap {
+    /*padding-bottom: 30rem;*/
+    /* Footer height */
+    min-height: 80vh;
+}
+
+footer {
+    background-color: #434444;
+    height: 30rem;
+    /*bottom: 0 auto;*/
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.footContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 1020px;
+    text-align: center;
+    justify-content: center;
+    height: 100%;
+}
+
+#footInfo {
+    margin: 0 auto;
+    max-width: 40em;
+}
+
+.foot-ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+.lifoot {
+    padding-bottom: 1em;
+}
+
+.afoot {
+    text-decoration: none;
+    font-size: 1.4em;
+}
+
+.afoot :hover {
+    text-decoration: none;
+    font-size: 1.4em;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.normalli {
+    padding-top: 0.5em;
+}
+
+/* *************************************************
+***************     @MEDIA QUERY PLATTA     ***********************
+***************************************************/
+
+@media screen and (min-width: 480px) {
+    
+    header {
+        background-image: url("https://studenter.miun.se/~bjed1500/DT093G/projekt/green.jpg");
+    }
+    /* size på logo*/
+    .logoHolder {
+        max-width: 400px;
+    }
+    
+/* flyttar ner hamburgerikonen lite*/
+    .nav-toggle {
+        top: 3rem;
+    }
+
+    h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        line-height: 1.4;
+        text-align: center;
+    }
+    h2 {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #2D2929;
+        font-size: 2.8rem;
+        font-weight: bold;
+    }
+    h3 {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #178f3f;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    /* Paragraf*/
+    p {
+        font-family: 'Roboto', sans-serif;
+        color: #3B2727;
+        font-size: 1.6rem;
+        line-height: 2.8rem;
+    }
+    /* MAIN*/
+    main {}
+    .mainWrapp {
+        display: flex;
+        flex-direction: row;
+    }
+    .showBlogs {
+        margin-right: 0.6em;
+        width: 80%;
+    }
+    aside {
+        background-color: #F6F6F6;
+        margin-top: 1em;
+        min-width: 25%;
+        height: min-content;
+        padding: 0;
+    }
+    /* Sätter min height på detta element för säkerställa en viss
+    längd på aside. annars*/
+    .sideArticle {
+        background-color: #ffffff;
+        min-height: 30em;
+        border-radius: 2px;
+        padding: 2em 0.3em 1em 0.3em;
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+    }
+    .aside-ul a {
+        color: #222120;
+    }
+    .aside-ul a:hover {
+        font-weight: bold;
+    }
+    /* Article-blog*/
+    .blogArticle {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+    .blogImg {
+        max-width: 500px;
+    }
+    /* div som håller text under bild*/
+    .createdBlog {
+        max-width: 500px;
+    }
+    /* Table*/
+    .table {
+        font-size: 1em;
+    }
+    /* LOGGA IN*/
+    .formWrapper {
+        max-width: 500px;
+    }
+    /* div som sätter vit backgrund*/
+    .white-back {
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+        border-radius: 2px;
+        padding: 2em 0.3em 1em 0.3em;
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+        margin-top: 1em;
+        min-height: 30em;
+    }
+    /* POST */
+    .forms {
+        max-width: 80%;
+    }
+    .textArea {
+        width: 40em;
+        margin-bottom: 2em;
+    }
+    /* klass för att visa användares inlägg*/
+    .userPost {}
+    .in-btn-wrapper {
+        max-width: 500px;
+    }
+    .blogText {
+        max-width: 40em;
+    }
+
+    .h1-left {
+        text-align: left;
+        padding-top: 1em;
+    }
+
+
+
+    footer {
+        margin-top: 2em;
+    }
+}
+
+
+@media screen and (min-width: 990px) {
+
+    main {
+        margin: 0 auto;
+        max-width: 1220px;
+    }
+
+    .userflex-article {
+        display: flex;
+        flex-direction: row;
+    }
+    .userPost {
+        display: flex;
+        flex-direction: column!important;
+    }
+
+    /* wrapper på skapa användare sidan som håller formulär*/
+    .formWrapper {
+        max-width: 1000px
+    }
+
+    /* start index*/
+
+    /* H1*/
+
+    header {
+        min-height: 7em
+    }
+    #topElement {
+        padding: 1em;
+    }
+
+    h1 {
+        font-size: 5rem;
+        font-weight: 900;
+        line-height: 1.4;
+        text-align: left;
+    }
+
+    h2 {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #2D2929;
+        font-size: 3rem;
+        font-weight: bold;
+    }
+    h3 {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #178f3f;
+        font-size: 2.2rem;
+        font-weight: bold;
+    }
+    /* Paragraf*/
+    p {
+        font-family: 'Roboto', sans-serif;
+        color: #3B2727;
+        font-size: 1.6rem;
+        line-height: 2.9rem;
+    }
+
+    .blogArticle {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 2em
+    }
+
+    .right-side-blog {
+        padding-top: 4em;
+    }
+
+    footer {
+        margin-top: 4em;
+    }
+
+
+    .nav-toggle {
+       display: none;
+    }
+
+    nav {
+    
+    }
+    .nav {
+        position: relative;
+        /*position: right 0;*/
+        right: 0;
+        width: 100%;
+        min-width: 30em;
+        height: 100%;
+        background-color: transparent;
+    }
+
+    .nav ul {
+        display: flex;
+        flex-direction: row;
+        min-width: 100%;
+
+    }
+
+    .li {
+        margin-left: 1em;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 0.2em 1em;
+        border: solid 1px #ffffff;
+        border-radius: 4px;
+    }
+
+    .li:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+        transition: ease-in 1ms;
+    }
+
+    .menuText {
+        font-size: 1.8rem;
+    }
+
+
+    /* headwrapper, sätts till flex*/
+    .headContainer {
+        max-width: 1220px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    /* di som håller logotyp*/
+    .logoHolder {
+        position: relative;
+        min-width: 400px;
+    }
+    .navHold {
+        position: relative;
+        background-color: transparent;
+    }
+
+}
