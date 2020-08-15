@@ -154,6 +154,7 @@ include('includes/header.php');
     include('includes/aside.php');
     ?>
     <!--DIV MAINWRAPP-->
+    </div>
     <?php
     include('includes/footer.php');
     ?>
