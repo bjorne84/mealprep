@@ -26,15 +26,10 @@ include('includes/config.php');
                         <div class="nav-toggle">
                             <div class="nav-toggle-bar"></div>
                         </div>
-                        <nav class="nav">
-                            <ul id="menu">
-                                <li class="li"><a class="menuText" href="start.html">Start</a></li>
-                                <li class="li"><a class="menuText" href="blimedlem.html">Skapa konto</a></li>
-                                <li class="li"><a class="menuText" href="logga-in.html">Logga in</a></li>
-                                <li class="li"><a class="menuText" href="post.html">Posta</a></li>
-                                <li class="li"><a class="menuText" href="start.html#aside">Bloggare</a></li>
-                            </ul>
-                        </nav>
+                        <!--INCLUDE NAV HERE-->
+                        <?php
+                        include('includes/nav.php');
+                        ?>
                     </div>
 
                 </div>
