@@ -1,4 +1,5 @@
 <?php
+$page_title = "logga in";
 include('includes/header.php');
 ?>
 <h1 class="h1-left">Logga in!</h1>

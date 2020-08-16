@@ -1,4 +1,5 @@
 <?php
+$page_title = "Skapa och publicera recept";
 include('includes/header.php');
 ?>
 <div id="account">

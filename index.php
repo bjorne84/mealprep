@@ -1,4 +1,5 @@
 <?php
+$page_title = "recept att preppa frysen med!";
 include('includes/header.php');
 ?>
 <h1 id="topElement">Recept att preppa frysen med!</h1>

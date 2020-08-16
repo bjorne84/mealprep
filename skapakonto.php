@@ -1,4 +1,5 @@
 <?php
+$page_title = "skapa konto på mealprep";
 include('includes/header.php');
 ?>
 <div class="mainWrapp">
