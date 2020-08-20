@@ -8,7 +8,7 @@ include('includes/header.php');
             <div class="formWrapper">
                 <h2>Bli medlem!</h2>
                 <p>Starta en receptblogg och dela med dig av dina bästa recept.</p>
-                <form class="forms" id="formCreate" method="POST">
+                <form class="forms" id="formCreate" action=""<?php echo $_SERVER['PHP_SELF'] ?> method="POST">
                     <!--fält för formulär, hela den grå delen-->
                     <fieldset id="field">
                         <p class="pfield">Du måste fylla i alla fält markerade med en asterix *
