@@ -2,20 +2,22 @@
 $page_title = "skapa konto på mealprep";
 include('includes/header.php');
 ?>
-    <?php
-    // check if form has ben sent and then start validate data
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $newUser = new CreateUserController;
-        $newUser->registerUser();
-    }
+
+<?php
+// check if form has ben sent and then start validate data
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $userCheck = new CreateUserController;
+    $error = $userCheck->registerUser();
+    echo $hej;
+}
 ?>
 <div class="mainWrapp">
     <div class="showBlogs">
         <div class="white-back">
             <div class="formWrapper">
                 <h2>Bli medlem!</h2>
-                <p>Starta en receptblogg och dela med dig av dina bästa recept.</p>
-                <form class="forms" id="formCreate" action=""<?php echo $_SERVER['PHP_SELF'] ?> method="POST">
+                <p>Starta en receptblogg och dela med dig av dina bästa recept.<?php echo $hej?></p>
+                <form class="forms" id="formCreate" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                     <!--fält för formulär, hela den grå delen-->
                     <fieldset id="field">
                         <p class="pfield">Du måste fylla i alla fält markerade med en asterix *
@@ -29,9 +31,9 @@ include('includes/header.php');
                         <label for="email">* E-postadress:</label><br>
                         <input type="email" name="email" id="email" class="input">
                         <br>
-                        <span><?php echo $error;?></span>
+                        <span></span>
                         <label for="userName">* Välj ett användarnamn/alias:</label><br>
-                        <input type="text" name="userName" id="userName" class="input" value="<?php echo $cData['userName'];?>" required><br>
+                        <input type="text" name="userName" id="userName" class="input" value="" required><br>
                         <label for="password">* Välj ett lösenord (minst 6 tecken långt):</label><br>
                         <input type="password" name="password" id="password" class="input" required><br>
                         <label for="passwordRepeat">* Upprepa lösenord:</label><br>

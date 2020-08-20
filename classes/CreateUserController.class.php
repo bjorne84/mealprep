@@ -1,7 +1,8 @@
 <?php
 
 class CreateUserController extends UserModel {
-
+    
+    private $errors = "hej";
 
     public function registerUser() {
         $uData = [
@@ -12,6 +13,7 @@ class CreateUserController extends UserModel {
             'password' => '',
             'passwordRepeat' => ''
         ];
+
         /* POST-data get sanitizes from html/php/script-tags*/
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -27,8 +29,8 @@ class CreateUserController extends UserModel {
         $cData = array_map('trim', $uData);
        
         if (empty($cData['email']) || empty($cData['userName']) || empty($cData['password']) || empty($cData['passwordRepeat'])) {
-            $error = 'Du måste fylla i alla fält!';
-            return $error;
+            // header("Location:index.php");
+            header("Location:skapakonto.php?error=emptyfields&foreName=".$cData['forname']."&surName=".$cData['surName']."&email=".$cData['email']."&userName=".$cData['userName']);
             exit();
         }
 
@@ -40,6 +42,8 @@ class CreateUserController extends UserModel {
          /*password repeat - lika, tom*/
 
         //return var_dump($cData);
+        $hej = "'<p>hej</p>'";
+        return $hej;
     }
 
 }
