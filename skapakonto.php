@@ -27,10 +27,11 @@ include('includes/header.php');
                         <input type="text" name="surName" id="surename" class="input">
                         <br>
                         <label for="email">* E-postadress:</label><br>
-                        <input type="email" name="email" id="email" class="input" required>
+                        <input type="email" name="email" id="email" class="input">
                         <br>
+                        <span><?php echo $error;?></span>
                         <label for="userName">* Välj ett användarnamn/alias:</label><br>
-                        <input type="text" name="userName" id="userName" class="input" required><br>
+                        <input type="text" name="userName" id="userName" class="input" value="<?php echo $cData['userName'];?>" required><br>
                         <label for="password">* Välj ett lösenord (minst 6 tecken långt):</label><br>
                         <input type="password" name="password" id="password" class="input" required><br>
                         <label for="passwordRepeat">* Upprepa lösenord:</label><br>

@@ -26,7 +26,11 @@ class CreateUserController extends UserModel {
         /* cData = cleanData, trim() function, delete whitespace*/
         $cData = array_map('trim', $uData);
        
-        if 
+        if (empty($cData['email']) || empty($cData['userName']) || empty($cData['password']) || empty($cData['passwordRepeat'])) {
+            $error = 'Du måste fylla i alla fält!';
+            return $error;
+            exit();
+        }
 
         /*Username - taken, rätt tecken, tom*/
 
@@ -35,7 +39,7 @@ class CreateUserController extends UserModel {
          /*password - rätt tecken tom*/
          /*password repeat - lika, tom*/
 
-        return var_dump($cData);
+        //return var_dump($cData);
     }
 
 }
