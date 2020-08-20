@@ -4,7 +4,7 @@ class CreateUserController extends UserModel {
 
 
     public function registerUser() {
-        $data = [
+        $uData = [
             'foreName' => '',
             'surName' => '',
             'email' => '',
@@ -12,9 +12,30 @@ class CreateUserController extends UserModel {
             'password' => '',
             'passwordRepeat' => ''
         ];
+        /* POST-data get sanitizes from html/php/script-tags*/
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        $cleandata = $_POST;
-        return var_dump($cleandata);
+
+        $uData = [
+            'foreName' => $_POST['foreName'],
+            'surName' => $_POST['surName'],
+            'email' => $_POST['email'],
+            'userName' => $_POST['userName'],
+            'password' => $_POST['password'],
+            'passwordRepeat' => $_POST['passwordRepeat']
+        ];
+        /* cData = cleanData, trim() function, delete whitespace*/
+        $cData = array_map('trim', $uData);
+       
+        if 
+
+        /*Username - taken, rätt tecken, tom*/
+
+        /*email - taken, valideringsfunktion, tom*/
+
+         /*password - rätt tecken tom*/
+         /*password repeat - lika, tom*/
+
+        return var_dump($cData);
     }
 
 }
