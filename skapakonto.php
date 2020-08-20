@@ -26,6 +26,8 @@ include('includes/header.php');
                         <input type="text" name="userName" id="userName" class="input" required><br>
                         <label for="password">* Välj ett lösenord (minst 6 tecken långt):</label><br>
                         <input type="text" name="password" id="password" class="input" required><br>
+                        <label for="passwordRepeat">* Upprepa lösenord:</label><br>
+                        <input type="text" name="passwordRepeat" id="password" class="input" required><br>
                         <input type="checkbox" name="checkbox" required><label for="checkbox">
                             Jag godkänner att ovanstående uppgifter lagras i syfte för
                             inloggning.</label><br>
