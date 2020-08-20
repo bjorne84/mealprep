@@ -2,11 +2,11 @@
 
 class CreateUserController extends UserModel {
     
-    private $errors = "hej";
+    private $hej;
 
     public function registerUser() {
         $uData = [
-            'foreName' => '',
+            'forName' => '',
             'surName' => '',
             'email' => '',
             'userName' => '',
@@ -14,11 +14,20 @@ class CreateUserController extends UserModel {
             'passwordRepeat' => ''
         ];
 
+        /* ERROR-ARAY*/
+        $errorData = [
+            'message' => '',
+            'forName' => 'test',
+            'surName' => '',
+            'email' => '',
+            'userName' => ''
+        ];
+
         /* POST-data get sanitizes from html/php/script-tags*/
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
         $uData = [
-            'foreName' => $_POST['foreName'],
+            'forName' => $_POST['forName'],
             'surName' => $_POST['surName'],
             'email' => $_POST['email'],
             'userName' => $_POST['userName'],
@@ -29,9 +38,20 @@ class CreateUserController extends UserModel {
         $cData = array_map('trim', $uData);
        
         if (empty($cData['email']) || empty($cData['userName']) || empty($cData['password']) || empty($cData['passwordRepeat'])) {
+            $errorData = [
+                'message' => 'Alla fält markerade med stjärna måste fyllas i!',
+                'forName' => $cData['forName'],
+                'surName' => $cData['surName'],
+                'email' => $cData['email'],
+                'userName' => $cData['userName']
+            ];
+            return $errorData;
             // header("Location:index.php");
-            header("Location:skapakonto.php?error=emptyfields&foreName=".$cData['forname']."&surName=".$cData['surName']."&email=".$cData['email']."&userName=".$cData['userName']);
+            //header("Location:skapakonto.php?error=emptyfields&foreName=".$cData['forname']."&surName=".$cData['surName']."&email=".$cData['email']."&userName=".$cData['userName']);
             exit();
+        }
+        else {
+            return $errorData; 
         }
 
         /*Username - taken, rätt tecken, tom*/
@@ -42,8 +62,8 @@ class CreateUserController extends UserModel {
          /*password repeat - lika, tom*/
 
         //return var_dump($cData);
-        $hej = "'<p>hej</p>'";
-        return $hej;
+        $this->hej = "längst ner";
+        return $this->hej;
     }
 
 }
