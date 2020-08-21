@@ -64,7 +64,7 @@ class CreateUserController extends UserModel {
             exit();
         }   else {
             //check if email exist
-            if($this->findEmail($cData['email'])) {
+            if($this->existInUserTable($cData['email'], 'Email')) {
                 $errorData['message'] = 'Det finns redan en användare med den e-post adressen';
                 $errorData['email'] = '';
                 return $errorData;
@@ -88,9 +88,29 @@ class CreateUserController extends UserModel {
             }
         }
     
-
          /*password - rätt tecken tom*/
+        if (strlen($_POST['password']) < 6) {
+            $errorData['message'] = 'Lösenordet måste vara minst 6 tecken långt!';
+            return $errorData;
+            exit();
+        } else {
+            if(preg_match("/^(.{0,7}|[^a-ö]*|[^\d]*)$/i", $_POST['password'])) {
+            $errorData['message'] = 'Lösenordet måste innehålla minst en siffra!';
+            return $errorData;
+            exit();
+            }
+        }
+
+
          /*password repeat - lika, tom*/
+         if ($_POST['password'] != $_POST['passwordRepeat']) {
+            $errorData['message'] = 'Lösenordet matchade inte, försök igen!';
+            return $errorData;
+            exit();
+         }
+
+          // Hash password
+          $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     }
 
