@@ -1,11 +1,15 @@
 <?php
 class Test
 {
-    private $testdata = "hej";
+    private $testdata = [];
 
     public function returtest()
     {
-         return $this->testdata;
+        $this->testdata = [
+            'message' => 'hej',
+            'forName' => 'test'
+        ]; 
+        return $this->testdata;
 
     }
 }
