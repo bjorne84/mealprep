@@ -1,5 +1,5 @@
 <?php
-
+include('includes/functions.php');
 class CreateUserController extends UserModel {
     
     private $hej;
@@ -88,13 +88,14 @@ class CreateUserController extends UserModel {
             }
         }
     
-         /*password - rätt tecken tom*/
-        if (strlen($_POST['password']) < 6) {
+         /*password - check length*/
+        if (strlen($cData['password']) < 6) {
             $errorData['message'] = 'Lösenordet måste vara minst 6 tecken långt!';
             return $errorData;
             exit();
         } else {
-            if(preg_match("/^(.{0,7}|[^a-ö]*|[^\d]*)$/i", $_POST['password'])) {
+            // check that password contains at least one number
+            if(preg_match("/^(.{0,7}|[^a-ö]*|[^\d]*)$/i", $cData['password'])) {
             $errorData['message'] = 'Lösenordet måste innehålla minst en siffra!';
             return $errorData;
             exit();
@@ -102,16 +103,22 @@ class CreateUserController extends UserModel {
         }
 
 
-         /*password repeat - lika, tom*/
-         if ($_POST['password'] != $_POST['passwordRepeat']) {
+         /*password repeat - check that password match*/
+         if ($cData['password'] != $cData['passwordRepeat']) {
             $errorData['message'] = 'Lösenordet matchade inte, försök igen!';
             return $errorData;
             exit();
          }
 
-          // Hash password
-          $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+          /* Hash password*/
+          $cData['password'] = password_hash($cData['password'], PASSWORD_DEFAULT);
 
+        /* Register user in database*/
+         if ($this->registerUser($cData)) {
+             header('location: logga-in.php');
+         }  else {
+             die('Någonting gick fel när användaren skulle sparas i databasen.');
+         }
     }
 
 }

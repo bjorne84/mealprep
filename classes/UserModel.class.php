@@ -1,4 +1,5 @@
 <?php
+include('functions.php');
 class UserModel extends Dbc {
 
 
@@ -54,7 +55,9 @@ class UserModel extends Dbc {
     }
 
 
-
+    protected function registerUser($inData) {
+        $sql = "INSERT INTO Users (Forname, Surname, Email)"
+    }
 
     protected function getUser($name) {
         $sql = "SELECT * FROM users WHERE user_firstName = ?";
