@@ -1,5 +1,4 @@
 <?php
-include('functions.php');
 class UserModel extends Dbc {
 
 
@@ -54,9 +53,10 @@ class UserModel extends Dbc {
 
     }
 
-
-    protected function registerUser($inData) {
-        $sql = "INSERT INTO Users (Forname, Surname, Email)"
+    protected function regUserInDB($inData) {
+        $sql = "INSERT INTO Users (Forname, Surname, Email, IP_Address, Username, Pass) VALUES(:Forname, :Surname, :Email, :IP_Address, :Username, :Pass)";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute($inData);
     }
 
     protected function getUser($name) {

@@ -8,6 +8,7 @@ include('includes/header.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userCheck = new CreateUserController;
     $error = $userCheck->registerUser();
+    var_dump($error);
     }
 
 ?>

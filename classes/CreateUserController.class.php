@@ -9,6 +9,7 @@ class CreateUserController extends UserModel {
             'forName' => '',
             'surName' => '',
             'email' => '',
+            'IP_Address' => '',
             'userName' => '',
             'password' => '',
             'passwordRepeat' => ''
@@ -30,6 +31,7 @@ class CreateUserController extends UserModel {
             'forName' => $_POST['forName'],
             'surName' => $_POST['surName'],
             'email' => $_POST['email'],
+            'IP_Address' => '',
             'userName' => $_POST['userName'],
             'password' => $_POST['password'],
             'passwordRepeat' => $_POST['passwordRepeat']
@@ -110,15 +112,31 @@ class CreateUserController extends UserModel {
             exit();
          }
 
+         /* Delete passwordRepeat*/
+         $cData['passwordRepeat'] = '';
           /* Hash password*/
           $cData['password'] = password_hash($cData['password'], PASSWORD_DEFAULT);
 
-        /* Register user in database*/
-         if ($this->registerUser($cData)) {
+          /* Get IP-adress from user*/
+          $cData['IP_Address'] = get_ip_address();
+
+          /* CREATE NEW ARRAY FOR INPUT*/
+           $inArr = [
+            'forName' => $cData['forName'],
+            'surName' => $cData['surName'],
+            'email' => $cData['email'],
+            'IP-Address' => $cData['IP_Address'],
+            'Create_date' => 'now()', 
+            'userName' => $cData['userName'],
+            'password' => $cData['password']
+           ];
+        //Register user in database
+         if ($this->regUserInDB($inArr)) {
              header('location: logga-in.php');
          }  else {
              die('Någonting gick fel när användaren skulle sparas i databasen.');
          }
+         //return $inArr;
     }
 
 }
