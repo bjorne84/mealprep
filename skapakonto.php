@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <?php if(isset($_POST['submit-btn'])) {
                                 if(!$error['message'] == "") {
                                     ?><div class="errorDiv">
-                                    <p class="errorLight"><?php if(isset($_POST['submit-btn'])){echo $error['message'];}?></p>   
+                                    <p class="errorLight"><?php echo $error['message'];?></p>   
                          </div><?php
                                 }
                             }
