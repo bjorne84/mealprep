@@ -9,8 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userCheck = new CreateUserController;
     $error = $userCheck->registerUser();
     }
-$testet = new Test;
-$tastare = $testet->returtest();
 
 ?>
 <div class="mainWrapp">
@@ -24,15 +22,23 @@ $tastare = $testet->returtest();
                     <fieldset id="field">
                         <p class="pfield">Du måste fylla i alla fält markerade med en asterix *
                             (stjärna)</p>
-                         <p class="errorTxt"><?php if(isset($_POST['submit-btn'])){echo $error['message'];}?></p>   
-                        <label for="forName">Förnamn:</label><br>
+
+                            <?php if(isset($_POST['submit-btn'])) {
+                                if(!$error['message'] == "") {
+                                    ?><div class="errorDiv">
+                                    <p class="errorLight"><?php if(isset($_POST['submit-btn'])){echo $error['message'];}?></p>   
+                         </div><?php
+                                }
+                            }
+                            ?>
+                         <label for="forName">Förnamn:</label><br>
                         <input type="text" name="forName" id="forName" value="<?php if(isset($_POST['submit-btn'])){echo $error['forName'];} ?>" class="input">
                         <br>
                         <label for="surname">Efternamn:</label><br>
                         <input type="text" name="surName" id="surename" class="input" value="<?php if(isset($_POST['submit-btn'])) {echo $error['surName'];} ?>">
                         <br>
                         <label for="email">* E-postadress:</label><br>
-                        <input type="email" name="email" id="email" class="input" value="<?php  if(isset($_POST['submit-btn'])) {echo $error['email'];}?>">
+                        <input type="text" name="email" id="email" class="input" value="<?php  if(isset($_POST['submit-btn'])) {echo $error['email'];}?>">
                         <br>
                         <span></span>
                         <label for="userName">* Välj ett användarnamn/alias:</label><br>

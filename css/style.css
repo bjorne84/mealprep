@@ -145,6 +145,18 @@ p {
     color: #ad040c;
     font-weight: bold;
 }
+.errorLight {
+    color: #fff;
+    font-weight: bold;
+    padding: 0.6em;
+}
+
+/* div med error*/
+.errorDiv {
+background-color: red;
+border: solid 2px #fff;
+max-width: 40rem;
+}
 
 /* Text for info of when a post was created and by who,
 different font compared to other p-elements*/
@@ -814,7 +826,6 @@ footer {
         line-height: 2.8rem;
     }
     /* MAIN*/
-    main {}
     .mainWrapp {
         display: flex;
         flex-direction: row;
@@ -885,7 +896,7 @@ footer {
         margin-bottom: 2em;
     }
     /* klass för att visa användares inlägg*/
-    .userPost {}
+   
     .in-btn-wrapper {
         max-width: 500px;
     }
@@ -964,6 +975,10 @@ footer {
         font-size: 1.6rem;
         line-height: 2.9rem;
     }
+    .errorLight {
+        color: #ee9499;
+        font-weight: bold;
+    }
 
     .blogArticle {
         display: flex;
@@ -984,9 +999,6 @@ footer {
        display: none;
     }
 
-    nav {
-    
-    }
     .nav {
         position: relative;
         /*position: right 0;*/
