@@ -52,12 +52,19 @@ class UserModel extends Dbc {
         }
 
     }
+  
 
-    protected function regUserInDB($inData) {
-        $sql = "INSERT INTO Users (Forname, Surname, Email, IP_Address, Username, Pass) VALUES(:Forname, :Surname, :Email, :IP_Address, :Username, :Pass)";
+    protected function regUserInDB($forname, $surName, $email, $IP_Address, $userName, $password) {
+
+        /* SQL-function now() have to be added direct in values and can not be binded with prepared statements*/
+        $sql = "INSERT INTO Users (Forname, Surname, Email, IP_Address, Create_date, Username, Pass) VALUES(?, ?, ?, ?, now(), ?, ?)";
+        /* connecting to database with parent-class and prepare the sql-quary*/ 
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute($inData);
+        /* exexute the sql query*/
+        $stmt->execute([$forname, $surName, $email, $IP_Address, $userName, $password]);
+        return true;
     }
+
 
     protected function getUser($name) {
         $sql = "SELECT * FROM users WHERE user_firstName = ?";

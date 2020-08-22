@@ -118,7 +118,9 @@ class CreateUserController extends UserModel {
           $cData['password'] = password_hash($cData['password'], PASSWORD_DEFAULT);
 
           /* Get IP-adress from user*/
-          $cData['IP_Address'] = get_ip_address();
+          $ip = get_ip_address();
+          $ip_inet = "(inet6_aton('$ip'))";  
+          $cData['IP_Address'] = $ip_inet;
 
           /* CREATE NEW ARRAY FOR INPUT*/
            $inArr = [
@@ -126,13 +128,19 @@ class CreateUserController extends UserModel {
             'surName' => $cData['surName'],
             'email' => $cData['email'],
             'IP-Address' => $cData['IP_Address'],
-            'Create_date' => 'now()', 
             'userName' => $cData['userName'],
             'password' => $cData['password']
            ];
+
+           $forname = $inArr['forName'];
+           $surName = $inArr['surName'];
+           $email = $inArr['email'];
+           $IP_Address = $inArr['IP-Address'];
+           $userName = $inArr['userName'];
+           $password = $inArr['password'];
         //Register user in database
-         if ($this->regUserInDB($inArr)) {
-             header('location: logga-in.php');
+         if ($this->regUserInDB($forname, $surName, $email, $IP_Address, $userName, $password)) {
+             header('Location: logga-in.php');
          }  else {
              die('Någonting gick fel när användaren skulle sparas i databasen.');
          }
