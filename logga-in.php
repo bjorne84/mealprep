@@ -2,6 +2,14 @@
 $page_title = "logga in";
 include('includes/header.php');
 ?>
+<?php
+// check if form has ben sent and then start validate data ($_SERVER['REQUEST_METHOD'] == 'POST')
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $logInCheck = new LoginContoller;
+    $log = $logInCheck->logIn();
+    var_dump($log);
+    }
+?>
 <h1 class="h1-left">Logga in!</h1>
 <div class="mainWrapp">
     <div class="showBlogs">
