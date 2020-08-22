@@ -65,6 +65,22 @@ abstract class UserModel extends Dbc {
         return true;
     }
 
+    /* Log the user in, check if password matches and returns array of userdata*/
+    protected function logIn($user, $password) {
+        $sql = "SELECT * FROM Users WHERE Username  = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$user]);
+
+        $result = $stmt->fetch();
+        $hashedpass = $result["Pass"];
+
+        /* check if the passwords match*/
+        if (password_verify($password, $hashedpass)) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
 
     protected function getUser($name) {
         $sql = "SELECT * FROM users WHERE user_firstName = ?";

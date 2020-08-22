@@ -2,6 +2,13 @@
 $page_title = "recept att preppa frysen med!";
 include('includes/header.php');
 ?>
+<?php
+    if(isset($_SESSION['user_id'])) {
+        echo "<p>Du är inloggad</P>";
+    } else {
+        echo "<p>Du är INTE inloggad</P>";
+    }
+?>
 <h1 id="topElement">Recept att preppa frysen med!</h1>
 <div class="mainWrapp">
     <div class="showBlogs">

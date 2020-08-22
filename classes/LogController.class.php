@@ -1,6 +1,5 @@
 <?php
-include('includes/functions.php');
-class LoginContoller extends UserModel {
+class LogController extends UserModel {
 
     public function logInUser() {
 
@@ -29,13 +28,23 @@ class LoginContoller extends UserModel {
 
         $userLoggedIn = $this->logIn($cData['userName'], $cData['password']);
 
-        /*if ($userLoggedIn) {
-            $this->SetUserSession($userLoggedIn);
+        if ($userLoggedIn) {
+            /* userLoggedIn contains array of userdata */
+            $this->setUserSession($userLoggedIn);
+          
         }   else {
             $errorMsg = 'Användarnamnet eller lösenordet var fel försök igen!';
             return $errorMsg;
             exit();
-        }*/
+        }
     }
 
+    public function setUserSession($user) {
+        session_start();
+        $_SESSION['user_id'] = $user['User_ID'];
+        $_SESSION['username'] = $user['Username'];
+        $_SESSION['email'] = $user['Email'];
+        header('Location: index.php?login=success');
+        exit();
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-class Test
+class Test extends UserModel
 {
     private $testdata = [];
 
@@ -7,7 +7,7 @@ class Test
     {
         $this->testdata = [
             'message' => 'hej',
-            'forName' => 'test'
+            'forName' => 'testfff'
         ]; 
         return $this->testdata;
 

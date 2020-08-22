@@ -975,10 +975,6 @@ footer {
         font-size: 1.6rem;
         line-height: 2.9rem;
     }
-    .errorLight {
-        color: #ee9499;
-        font-weight: bold;
-    }
 
     .blogArticle {
         display: flex;
