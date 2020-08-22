@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('includes/config.php');
+include('includes/functions.php');
 ?>
 <!DOCTYPE html>
 <html lang="sv">
@@ -20,7 +21,7 @@ include('includes/config.php');
             <header>
                 <div class="headContainer">
                     <div class="logoHolder">
-                        <a href="index.html"><img id="logosize" src="images/matprepp.png" alt="logotyp"></a>
+                        <a href="index.php"><img id="logosize" src="images/matprepp.png" alt="logotyp"></a>
                     </div>
                     <div class="navHold">
                         <!--Hamburger menu-->

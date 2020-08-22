@@ -47,4 +47,11 @@ class LogController extends UserModel {
         header('Location: index.php?login=success');
         exit();
     }
+    public function logOut() {
+        unset($_SESSION['user_id']);
+        unset($_SESSION['username']);
+        unset($_SESSION['email']);
+        header('location: index-php?login=notloggedin');
+        exit();
+    }
 }
