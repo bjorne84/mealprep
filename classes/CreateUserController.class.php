@@ -1,5 +1,5 @@
 <?php
-include('includes/functions.php');
+include_once('includes/functions.php');
 class CreateUserController extends UserModel {
     
     private $hej;
@@ -117,8 +117,9 @@ class CreateUserController extends UserModel {
           /* Hash password*/
           $cData['password'] = password_hash($cData['password'], PASSWORD_DEFAULT);
 
-          /* Get IP-adress from user*/
-          $ip = get_ip_address();
+          /* Get IP-adress from user
+          $ip = get_ip_address();*/
+          $ip = '192.0.2.1';
           $ip_inet = "(inet6_aton('$ip'))";  
           $cData['IP_Address'] = $ip_inet;
 

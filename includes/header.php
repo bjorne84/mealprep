@@ -1,7 +1,6 @@
 <?php
-session_start();
 include('includes/config.php');
-include('includes/functions.php');
+include_once('includes/functions.php');
 ?>
 <!DOCTYPE html>
 <html lang="sv">
