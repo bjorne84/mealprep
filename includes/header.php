@@ -10,6 +10,15 @@ include_once('includes/functions.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!--tiny editor to use in textare-->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: '.textArea',
+        menubar: false,
+        block_formats: 'Paragraph=p; Header 3=h3'
+      });
+    </script>
     <title><?=$site_title . $divider . $page_title ?></title>
 </head>
 
