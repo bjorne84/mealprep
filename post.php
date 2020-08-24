@@ -2,6 +2,15 @@
 $page_title = "Skapa och publicera recept";
 include('includes/header.php');
 ?>
+<?php
+// check if form has ben sent and then start validate data ($_SERVER['REQUEST_METHOD'] == 'POST')
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+    var_dump($_POST);
+    printf($_POST);  
+}
+    
+?>
 <div id="account">
     <h1 class="h1-left">Skapa recept</h1>
     <form class="forms" id="formCreate" method="POST">
@@ -21,16 +30,23 @@ include('includes/header.php');
                 <input type="number" name="port" id="port" class="input max" value="2" min="1" max="20"><br>
                 <h3 class="h3form">Lägg till ingredienser:</h3>
                 <input type="number" name="ingrNum" id="ingrNum" class="input max" value="1" min="1">
-                <select class="max">
-                    <option value="ml">ml</option>
-                    <option value="cl">cl</option>
-                    <option value="dl">dl</option>
-                    <option value="liter">liter</option>
-                    <option value="liter">krm</option>
-                    <option value="liter">tesked</option>
-                    <option value="liter">matsked</option>
-                    <option value="gram">gram</option>
-                    <option value="kilo">kilo</option>
+                <select name="unit" class="max">
+                    <option name='104' value='104'>ml</option>
+                    <option name='103' value='103'>cl</option>
+                    <option name='102' value='102'>dl</option>
+                    <option name='101' value='101'>liter</option>
+                    <option name='110' value='110'>krm</option>
+                    <option name='109' value='109'>tesked</option>
+                    <option name='108' value='108'>matsked</option>
+                    <option name='105' value='105'>gram</option>
+                    <option name='106' value='106'>hekto</option>
+                    <option name='107' value='107'>kilo</option>
+                    <option name='111' value='111'>st</option>
+                    <option name='112' value='112'>ask</option>
+                    <option name='113' value='113'>påse</option>
+                    <option name='114' value='114'>knippe</option>
+                    <option name='115' value='115'>klyfta</option>
+                    <option name='117' value='117'>portioner</option>
                 </select>
                 <input type="text" name="ingr" id="ingr" class="input" placeholder="Lägg till ingrediens"><br>
                 <button type="submit" id="btn-ingr" class="btn btn2 btn-ingr">+ Fler fält</button>
