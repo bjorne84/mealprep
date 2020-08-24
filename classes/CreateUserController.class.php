@@ -2,8 +2,6 @@
 include_once('includes/functions.php');
 class CreateUserController extends UserModel {
     
-    private $hej;
-
     public function registerUser() {
         $uData = [
             'forName' => '',
