@@ -12,6 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo "<br>";  
     echo $_SESSION['user_id'];
     echo $error['headLine'];
+    var_dump($_FILES);
+    print_r($_FILES);
+    echo $_FILES['name'];
 }
     
 ?>
@@ -21,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!--fält för formulär, hela den grå delen-->
         <fieldset id="field">
             <p class="pfield"></p>
-            <?php if(isset($_POST['submitPost']) || isset($_POST['moreFields'])) {
+            <?php if(isset($_POST['submitPost'])) {
                     if(!$error['message'] == "") {
                 ?><div class="errorDiv">
                 <p class="errorLight"><?php echo $error['message'];?></p>   
@@ -31,69 +34,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ?>
             <label for="headLine">Namn på recept</label><br>
             <input type="text" name="headLine" id="headLine" class="input" placeholder="Obligatoriskt"
-            <?php if(isset($_POST['submitPost']) || isset($_POST['moreFields'])){?>value=<?php echo $error['headLine'];} ?> required><br><br>
+            <?php if(isset($_POST['submitPost'])){?>value=<?php echo $error['headLine'];} ?> required><br><br>
             <label for="blogPost">Kort beskrivning:</label><br>
             <textarea id="blogPost" class="textArea" name="blogPost" cols="30" rows="4" 
             placeholder="Beskriv kortfattat maträtten, är den lätt-lagad eller mer avancerad?">
-            <?php if(isset($_POST['submitPost']) || isset($_POST['moreFields'])){echo $error['short_description'];}?>
+            <?php if(isset($_POST['submitPost'])){echo $error['short_description'];}?>
             </textarea>
             <br>
             <label for="blogPostHow">Gör så här:</label><br>
             <textarea id="blogPostHow" class="textArea" name="blogPostHow" cols="30" rows="4" 
             placeholder="Beskriv hur man tillagar den, gärna stegvis och tydligt...">
-            <?php if(isset($_POST['submitPost']) || isset($_POST['moreFields'])){echo $error['step_by_step'];}?></textarea>
+            <?php if(isset($_POST['submitPost'])){echo $error['step_by_step'];}?></textarea>
             <br>
             <div class="ingDiv">
                 <label for="port">Antal portioner:</label><br>
                 <input type="number" name="port" id="port" class="input max" value="2" min="1" max="20"><br>
-                <h3 class="h3form">Lägg till ingredienser:</h3>
-                <input type="number" name="ingrNum" id="ingrNum" class="input max" value="1" min="1">
-                <select name="unit" class="max">
-                    <option name='104' value='104'>ml</option>
-                    <option name='103' value='103'>cl</option>
-                    <option name='102' value='102'>dl</option>
-                    <option name='101' value='101'>liter</option>
-                    <option name='110' value='110'>krm</option>
-                    <option name='109' value='109'>tesked</option>
-                    <option name='108' value='108'>matsked</option>
-                    <option name='105' value='105'>gram</option>
-                    <option name='106' value='106'>hekto</option>
-                    <option name='107' value='107'>kilo</option>
-                    <option name='111' value='111'>st</option>
-                    <option name='112' value='112'>ask</option>
-                    <option name='113' value='113'>påse</option>
-                    <option name='114' value='114'>knippe</option>
-                    <option name='115' value='115'>klyfta</option>
-                    <option name='117' value='117'>portioner</option>
-                </select>
-                <input type="text" name="ingr" id="ingr" class="input" placeholder="Lägg till ingrediens" value="test"><br>
-                <!--More fields dynamic is added with php-->
-                <?php if(isset($_POST['moreFields'])){
-                    ?>
-                <input type="number" name="ingrNum" id="ingrNum" class="input max" value="1" min="1">
-                <select name="unit" class="max">
-                    <option name='104' value='104'>ml</option>
-                    <option name='103' value='103'>cl</option>
-                    <option name='102' value='102'>dl</option>
-                    <option name='101' value='101'>liter</option>
-                    <option name='110' value='110'>krm</option>
-                    <option name='109' value='109'>tesked</option>
-                    <option name='108' value='108'>matsked</option>
-                    <option name='105' value='105'>gram</option>
-                    <option name='106' value='106'>hekto</option>
-                    <option name='107' value='107'>kilo</option>
-                    <option name='111' value='111'>st</option>
-                    <option name='112' value='112'>ask</option>
-                    <option name='113' value='113'>påse</option>
-                    <option name='114' value='114'>knippe</option>
-                    <option name='115' value='115'>klyfta</option>
-                    <option name='117' value='117'>portioner</option>
-                </select>
-                <input type="text" name="ingr" id="ingr" class="input" placeholder="Lägg till ingrediens" value="test"><br>
-                <?php
-                 /* Tar bort knapp-tryckningen så det inte följer med runt*/
-    unset($_REQUEST['moreFields']);}?>
-                <button type="submit" name="moreFields" id="btn-ingr" class="btn btn2 btn-ingr">+ Fler fält</button>
             </div>
             <br>
             <label for="foodImg">Ladda upp bild på maträtten (png, jpeg, gif eller i webp-format).

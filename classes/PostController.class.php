@@ -26,10 +26,7 @@ class PostController extends PostModel {
         /* Data to sanitize with filter_input_array */
         $inputToFilter = [
             'headLine' => $_POST['headLine'],
-            'port' => $_POST['port'],
-            'ingr' => $_POST['ingr'],
-            'unit' => $_POST['unit'],
-            'ingrNum' => $_POST['ingrNum']
+            'port' => $_POST['port']
         ];
 
           /* POST-data get sanitizes from html/php/script-tags, but fields 
@@ -52,9 +49,6 @@ class PostController extends PostModel {
             'short_description' => $Short_description,
             'step_by_step' => $Step_by_step,
             'port' => $inputToFilter['port'],
-            'ingr' => $inputToFilter['ingr'],
-            'unit' => $inputToFilter['unit'],
-            'ingrNum' => $inputToFilter['ingrNum'],
             'image' => $_POST['foodImg']
         ];
           /* trim() function, delete whitespace*/
