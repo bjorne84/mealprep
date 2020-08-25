@@ -637,6 +637,20 @@ textarea {
     transition: ease-in 0.5ms;
 }
 
+
+/* ladda upp bilder*/
+.btn-img  {
+    margin-top: 0.6em;
+    background-color: #037737;
+    font-size: 1em;
+    padding: 0.1em 0.3em;
+}
+
+.btn-img :hover {
+    background-color: #035025;
+    transition: ease-in 0.5ms;
+}
+
 /* Ingredienser */
 
 .ingDiv {

@@ -10,13 +10,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST['submitImg'])) {
         $imgErr= $newPost->setPostImg();
         var_dump($imgErr);
-        echo $imgErr;
+        $imageData = file_get_contents($_FILES['foodImg']['tmp_name']);
+        //echo $imgErr;
     }
     var_dump($error);
     //printf($_POST);
     echo "<br>";  
     var_dump($_FILES['foodImg']);
     echo $_FILES['foodImg']['name'];
+   
 }
     
 ?>
@@ -40,9 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label for="foodImg">Ladda upp bild på maträtten (png, jpeg, gif eller i webp-format).
                 Bild är
                 frivilligt.</label><br>
-            <img class="blogImages" src="<?php echo $imgErr?>" alt="Bild på maträtt">    
+            <img class="blogImg" <?php if(isset($_POST['submitImg'])) {
+            echo sprintf('src="data:image/' . $imgErr["imgType"] . ';base64,%s" />', base64_encode($imageData));}?>>    
             <input type="file" id="foodImg" name="foodImg" accept="image/png, image/jpeg, image/gif, image/webp"><br>
-            <button type="submit" name="submitImg"  id="submitImg" class="btn btn2">Ladda upp bild</button><br><br>
+            <button type="submit" name="submitImg"  id="submitImg" class="btn btn2 btn-img">Ladda upp bild</button><br><br>
             <label for="blogPost">Kort beskrivning:</label><br>
             <textarea id="blogPost" class="textArea" name="blogPost" cols="30" rows="4" 
             placeholder="Beskriv kortfattat maträtten, är den lätt-lagad eller mer avancerad?">

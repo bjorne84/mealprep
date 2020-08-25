@@ -46,10 +46,17 @@ class PostController extends PostModel {
         $imgName = current($imgNameArr);
          /* Adds unique name, with the uniqid function, true adds even more chars*/
         $newImgName  = $imgName . '_ID_' . uniqid("", false) . '.' . $imgType;
+        /* Create array with name and tempname */
+        $imgOutput = [
+            'newImgName' => $newImgName,
+            'tmp_name' => $imgData['tmp_name'],
+            'imgType' => $imgType
+        ];
+
         // add right location
         $imgDestination = 'gallery/' . $newImgName; 
-        move_uploaded_file($imgData['tmp_name'], $imgDestination);
-        return $imgDestination; 
+        //move_uploaded_file($imgData['tmp_name'], $imgDestination);
+        return $imgOutput; 
         exit();
 
     }
