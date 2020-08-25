@@ -67,6 +67,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <option name='117' value='117'>portioner</option>
                 </select>
                 <input type="text" name="ingr" id="ingr" class="input" placeholder="Lägg till ingrediens" value="test"><br>
+                <!--More fields dynamic is added with php-->
+                <?php if(isset($_POST['moreFields'])){
+                    ?>
+                <input type="number" name="ingrNum" id="ingrNum" class="input max" value="1" min="1">
+                <select name="unit" class="max">
+                    <option name='104' value='104'>ml</option>
+                    <option name='103' value='103'>cl</option>
+                    <option name='102' value='102'>dl</option>
+                    <option name='101' value='101'>liter</option>
+                    <option name='110' value='110'>krm</option>
+                    <option name='109' value='109'>tesked</option>
+                    <option name='108' value='108'>matsked</option>
+                    <option name='105' value='105'>gram</option>
+                    <option name='106' value='106'>hekto</option>
+                    <option name='107' value='107'>kilo</option>
+                    <option name='111' value='111'>st</option>
+                    <option name='112' value='112'>ask</option>
+                    <option name='113' value='113'>påse</option>
+                    <option name='114' value='114'>knippe</option>
+                    <option name='115' value='115'>klyfta</option>
+                    <option name='117' value='117'>portioner</option>
+                </select>
+                <input type="text" name="ingr" id="ingr" class="input" placeholder="Lägg till ingrediens" value="test"><br>
+                <?php
+                 /* Tar bort knapp-tryckningen så det inte följer med runt*/
+    unset($_REQUEST['moreFields']);}?>
                 <button type="submit" name="moreFields" id="btn-ingr" class="btn btn2 btn-ingr">+ Fler fält</button>
             </div>
             <br>

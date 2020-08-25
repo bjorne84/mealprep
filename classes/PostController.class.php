@@ -46,7 +46,7 @@ class PostController extends PostModel {
          $Step_by_step = strip_tags($Step_by_step, '<br><b><strong><a><i><h4>');
         
         $data = [
-            'message' => 'message eett',
+            'message' => '',
             'User_ID' => $_SESSION['user_id'],
             'headLine' => $inputToFilter['headLine'],
             'short_description' => $Short_description,
@@ -67,12 +67,11 @@ class PostController extends PostModel {
             exit();
         } 
 
-        $data['message'] = 'Inget fel perfekt!';
-            /* Send dataarray to method for insert of recipe in sql*/
-            $this->setRecipe($data, true);
-            return $data;
+         /* Send dataarray to method for insert of recipe in sql*/
+         $this->setRecipe($data, true);
+         return $data;
             exit();
-        
 
+         
     }
 }
