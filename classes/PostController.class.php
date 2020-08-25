@@ -2,26 +2,59 @@
 include_once('includes/functions.php');
 class PostController extends PostModel {
 
-    public function postRecipe() {
+    public function setPostImg() {
+        $imgData = [
+            'name' => $_FILES['foodImg']['name'],
+            'type' => $_FILES['foodImg']['type'],
+            'tmp_name' => $_FILES['foodImg']['tmp_name'],
+            'error' => $_FILES['foodImg']['error'],
+            'size' => $_FILES['foodImg']['size']
 
-        /* data we need
-        $data = [
-            'User_ID' => '',
-            'Title' => '',
-            'Short_description ' => '',
-            'Step_by_step ' => '',
-            'Portions' => ''
         ];
 
+        $errorImg = '';
+        /* check type 
+        First, exlode, create an array, with type, exluding image/jpg to separate image*/ 
+        $imgExt = explode("/", $imgData['type']); 
+        // converting to lower case and grab last part of the array $imgExt
+        $imgType = strtolower(end($imgExt));
+        // Allowed file extensions
+        $rightTypes = ['jpg', 'jpeg', 'gif', 'png', 'webp'];
+        
+        // check allowed filetypes
+        if(!in_array($imgType,$rightTypes)) {
+            $errorImg = 'Otilåten filtyp på bilden!';
+            return $errorImg;
+            exit();
+        }
+        // check for errors
+        if (!$imgData['error'] === 0) {
+            $errorImg = 'Det är nåot fel på bilden';
+            return $errorImg;
+            exit();
+        }
+        // check size
+        if ($imgData['error'] >= 5000000) {
+            $errorImg = 'Bilden är för stor, max 5 MB!';
+            return $errorImg;
+            exit();
+        }
+        /* add unique name
+        First, exlode, create an array, with type, exluding image/jpg to separate image*/ 
+        $imgNameArr = explode(".", $imgData['name']); 
+        /* Current takes the first element int the array*/
+        $imgName = current($imgNameArr);
+         /* Adds unique name, with the uniqid function, true adds even more chars*/
+        $newImgName  = $imgName . '_ID_' . uniqid("", false) . '.' . $imgType;
+        // add right location
+        $imgDestination = 'gallery/' . $newImgName; 
+        move_uploaded_file($imgData['tmp_name'], $imgDestination);
+        return $imgDestination; 
+        exit();
 
+    }
 
-        $ingredients = [
-            
-            'Recipe_ID' => '',
-            'Ingredient_ID' => '',
-            'Unit_ID' => '',
-            'Quantity' => ''
-        ];*/
+    public function postRecipe() {
 
         /* Data to sanitize with filter_input_array */
         $inputToFilter = [
@@ -48,8 +81,7 @@ class PostController extends PostModel {
             'headLine' => $inputToFilter['headLine'],
             'short_description' => $Short_description,
             'step_by_step' => $Step_by_step,
-            'port' => $inputToFilter['port'],
-            'image' => $_POST['foodImg']
+            'port' => $inputToFilter['port']
         ];
           /* trim() function, delete whitespace*/
            $data = array_map('trim', $data);
@@ -62,9 +94,13 @@ class PostController extends PostModel {
         } 
 
          /* Send dataarray to method for insert of recipe in sql*/
-         $this->setRecipe($data, true);
-         return $data;
-            exit();
+         if($this->setRecipe($data, true)) {
+            $data['message'] = 'success';
+            return $data;
+            /* header skall in här istället*/
+         } else {
+            die('något gick del med kopplingen till databasen, otur.');
+         }
 
          
     }

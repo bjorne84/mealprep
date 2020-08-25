@@ -7,20 +7,22 @@ include('includes/header.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $newPost = new PostController;
     $error = $newPost->postRecipe();
+    if(isset($_POST['submitImg'])) {
+        $imgErr= $newPost->setPostImg();
+        var_dump($imgErr);
+        echo $imgErr;
+    }
     var_dump($error);
     //printf($_POST);
     echo "<br>";  
-    echo $_SESSION['user_id'];
-    echo $error['headLine'];
-    var_dump($_FILES);
-    print_r($_FILES);
-    echo $_FILES['name'];
+    var_dump($_FILES['foodImg']);
+    echo $_FILES['foodImg']['name'];
 }
     
 ?>
 <div id="account">
     <h1 class="h1-left">Skapa recept</h1>
-    <form class="forms" id="formCreate" method="POST">
+    <form class="forms" id="formCreate" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
         <!--fält för formulär, hela den grå delen-->
         <fieldset id="field">
             <p class="pfield"></p>
@@ -35,6 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label for="headLine">Namn på recept</label><br>
             <input type="text" name="headLine" id="headLine" class="input" placeholder="Obligatoriskt"
             <?php if(isset($_POST['submitPost'])){?>value=<?php echo $error['headLine'];} ?> required><br><br>
+            <label for="foodImg">Ladda upp bild på maträtten (png, jpeg, gif eller i webp-format).
+                Bild är
+                frivilligt.</label><br>
+            <input type="file" id="foodImg" name="foodImg" accept="image/png, image/jpeg, image/gif, image/webp">
+            <button type="submit" name="submitImg"  id="submitImg" class="btn btn2">Ladda upp bild</button><br><br>
             <label for="blogPost">Kort beskrivning:</label><br>
             <textarea id="blogPost" class="textArea" name="blogPost" cols="30" rows="4" 
             placeholder="Beskriv kortfattat maträtten, är den lätt-lagad eller mer avancerad?">
@@ -51,10 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="number" name="port" id="port" class="input max" value="2" min="1" max="20"><br>
             </div>
             <br>
-            <label for="foodImg">Ladda upp bild på maträtten (png, jpeg, gif eller i webp-format).
-                Bild är
-                frivilligt.</label><br>
-            <input type="file" id="foodImg" name="foodImg" accept="image/png, image/jpeg, image/gif, image/webp">
             <div class="btn-wrapper">
                 <button type="submit" name="submitPost"  id="btn-create" class="btn btn2">Publicera</button>
                 <button type="reset" name="deletePost" id="btn-reset" class="btn btn2 btn-reset">Radera fält</button>
