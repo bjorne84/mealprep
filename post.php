@@ -40,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label for="foodImg">Ladda upp bild på maträtten (png, jpeg, gif eller i webp-format).
                 Bild är
                 frivilligt.</label><br>
-            <input type="file" id="foodImg" name="foodImg" accept="image/png, image/jpeg, image/gif, image/webp">
+            <img class="blogImages" src="<?php echo $imgErr?>" alt="Bild på maträtt">    
+            <input type="file" id="foodImg" name="foodImg" accept="image/png, image/jpeg, image/gif, image/webp"><br>
             <button type="submit" name="submitImg"  id="submitImg" class="btn btn2">Ladda upp bild</button><br><br>
             <label for="blogPost">Kort beskrivning:</label><br>
             <textarea id="blogPost" class="textArea" name="blogPost" cols="30" rows="4" 
