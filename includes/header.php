@@ -12,11 +12,12 @@ include_once('includes/functions.php');
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!--tiny editor to use in textare-->
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
+    <script charset="utf8mb4">
       tinymce.init({
         selector: '.textArea',
         menubar: false,
-        block_formats: 'Paragraph=p; Header 3=h3'
+        block_formats: 'Paragraph=p; Header 3=h3',
+        entity_encoding: "raw"
       });
     </script>
     <title><?=$site_title . $divider . $page_title ?></title>

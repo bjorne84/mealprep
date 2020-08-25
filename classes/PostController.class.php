@@ -25,11 +25,11 @@ class PostController extends PostModel {
 
         /* Data to sanitize with filter_input_array */
         $inputToFilter = [
-            'Title' => $_POST['headLine'],
-            'Portions' => $_POST['port'],
-            'Ingrediens' => $_POST['ingr'],
-            'Unit' => $_POST['unit'],
-            'Quantity' => $_POST['ingrNum']
+            'headLine' => $_POST['headLine'],
+            'port' => $_POST['port'],
+            'ingr' => $_POST['ingr'],
+            'unit' => $_POST['unit'],
+            'ingrNum' => $_POST['ingrNum']
         ];
 
           /* POST-data get sanitizes from html/php/script-tags, but fields 
@@ -41,35 +41,38 @@ class PostController extends PostModel {
          
         $Short_description = $_POST['blogPost'];
         $Step_by_step = $_POST['blogPostHow'];
-         
-
-         /* strip_tags() */
-         $Short_description = strip_tags($Short_description, '<br><b><strong><a><i><H3>');
-         $Step_by_step = strip_tags($Step_by_step, '<br><b><strong><a><i><H3>');
+         /* strip_tags */
+         $Short_description = strip_tags($Short_description, '<br><b><strong><a><i><h4>');
+         $Step_by_step = strip_tags($Step_by_step, '<br><b><strong><a><i><h4>');
         
         $data = [
-            'message' => '',
-            'User_ID' => '',
-            'title' => $inputToFilter['Title'],
-            'portions' => $inputToFilter['Portions'],
-            'ingrediens' => $inputToFilter['Ingrediens'],
-            'unit' => $inputToFilter['Unit'],
-            'quantity' => $inputToFilter['Quantity'],
+            'message' => 'message eett',
+            'User_ID' => $_SESSION['user_id'],
+            'headLine' => $inputToFilter['headLine'],
             'short_description' => $Short_description,
             'step_by_step' => $Step_by_step,
+            'port' => $inputToFilter['port'],
+            'ingr' => $inputToFilter['ingr'],
+            'unit' => $inputToFilter['unit'],
+            'ingrNum' => $inputToFilter['ingrNum'],
             'image' => $_POST['foodImg']
         ];
           /* trim() function, delete whitespace*/
-           $data = array_map('trim', $inputToFilter);
+           $data = array_map('trim', $data);
+    
+          /*If either of required fields are empty, error array with input-data and message.*/ 
+          if (empty($data['headLine']) || empty($data['short_description']) || empty($data['step_by_step'])) {
+            $data['message'] = 'Du måste skriva in titel, beskrivning, steg-för-steg (gör så här) och antal!';
+            return $data;
+            exit();
+        } 
 
-        // Add more data
-        array_push($data,"blue","yellow");
-     
+        $data['message'] = 'Inget fel perfekt!';
+            /* Send dataarray to method for insert of recipe in sql*/
+            $this->setRecipe($data, true);
+            return $data;
+            exit();
+        
 
-        // trim
-
-        // strip
-
-        // strip tags
     }
 }

@@ -5,9 +5,13 @@ include('includes/header.php');
 <?php
 // check if form has ben sent and then start validate data ($_SERVER['REQUEST_METHOD'] == 'POST')
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
-    var_dump($_POST);
-    printf($_POST);  
+    $newPost = new PostController;
+    $error = $newPost->postRecipe();
+    var_dump($error);
+    //printf($_POST);
+    echo "<br>";  
+    echo $_SESSION['user_id'];
+    echo $error['headLine'];
 }
     
 ?>
@@ -17,13 +21,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!--fält för formulär, hela den grå delen-->
         <fieldset id="field">
             <p class="pfield"></p>
+            <?php if(isset($_POST['submitPost']) || isset($_POST['moreFields'])) {
+                    if(!$error['message'] == "") {
+                ?><div class="errorDiv">
+                <p class="errorLight"><?php echo $error['message'];?></p>   
+                </div><?php
+                }
+            }
+            ?>
             <label for="headLine">Namn på recept</label><br>
-            <input type="text" name="headLine" id="headLine" class="input" placeholder="Obligatoriskt" required><br>
+            <input type="text" name="headLine" id="headLine" class="input" placeholder="Obligatoriskt"
+            <?php if(isset($_POST['submitPost']) || isset($_POST['moreFields'])){?>value=<?php echo $error['headLine'];} ?> required><br><br>
             <label for="blogPost">Kort beskrivning:</label><br>
-            <textarea id="blogPost" class="textArea" name="blogPost" cols="30" rows="4" placeholder="Beskriv kortfattat maträtten, är den lätt-lagad eller mer avancerad?"></textarea>
+            <textarea id="blogPost" class="textArea" name="blogPost" cols="30" rows="4" 
+            placeholder="Beskriv kortfattat maträtten, är den lätt-lagad eller mer avancerad?">
+            <?php if(isset($_POST['submitPost']) || isset($_POST['moreFields'])){echo $error['short_description'];}?>
+            </textarea>
             <br>
             <label for="blogPostHow">Gör så här:</label><br>
-            <textarea id="blogPostHow" class="textArea" name="blogPostHow" cols="30" rows="4" placeholder="Beskriv hur man tillagar den, gärna stegvis och tydligt..."></textarea>
+            <textarea id="blogPostHow" class="textArea" name="blogPostHow" cols="30" rows="4" 
+            placeholder="Beskriv hur man tillagar den, gärna stegvis och tydligt...">
+            <?php if(isset($_POST['submitPost']) || isset($_POST['moreFields'])){echo $error['step_by_step'];}?></textarea>
             <br>
             <div class="ingDiv">
                 <label for="port">Antal portioner:</label><br>
@@ -48,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <option name='115' value='115'>klyfta</option>
                     <option name='117' value='117'>portioner</option>
                 </select>
-                <input type="text" name="ingr" id="ingr" class="input" placeholder="Lägg till ingrediens"><br>
-                <button type="submit" id="btn-ingr" class="btn btn2 btn-ingr">+ Fler fält</button>
+                <input type="text" name="ingr" id="ingr" class="input" placeholder="Lägg till ingrediens" value="test"><br>
+                <button type="submit" name="moreFields" id="btn-ingr" class="btn btn2 btn-ingr">+ Fler fält</button>
             </div>
             <br>
             <label for="foodImg">Ladda upp bild på maträtten (png, jpeg, gif eller i webp-format).
@@ -57,8 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 frivilligt.</label><br>
             <input type="file" id="foodImg" name="foodImg" accept="image/png, image/jpeg, image/gif, image/webp">
             <div class="btn-wrapper">
-                <button type="submit" id="btn-create" class="btn btn2">Publicera</button>
-                <button type="reset" id="btn-reset" class="btn btn2 btn-reset">Radera fält</button>
+                <button type="submit" name="submitPost"  id="btn-create" class="btn btn2">Publicera</button>
+                <button type="reset" name="deletePost" id="btn-reset" class="btn btn2 btn-reset">Radera fält</button>
             </div>
         </fieldset>
     </form>
