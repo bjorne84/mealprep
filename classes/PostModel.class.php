@@ -1,18 +1,10 @@
 <?php
 abstract class PostModel extends Dbc {
     
-    protected function setRecipe(&$arr, $createORmodify) {
+    protected function setRecipe(&$arr) {
 
         /* $createORmodify = skickar med ett värde av antingen */
-        function create_date($createORmodify) {
-        if($createORmodify === true) {
-            return 'create_date';
-        } else if ($createORmodify === false) {
-            return 'last_mod_date';
-        }
-    }
-        $datevalue = create_date($createORmodify);
-
+      
         /* */
         $User_ID = $arr['User_ID'];
         $title = $arr['headLine'];
@@ -21,7 +13,7 @@ abstract class PostModel extends Dbc {
         $port = $arr['port'];
 
         /* SQL-function now() have to be added direct in values and can not be binded with prepared statements*/
-        $sql = "INSERT INTO Recipes (User_ID, Title, Short_description, Step_by_step, $datevalue, Portions) VALUES(?, ?, ?, ?, now(), ?)";
+        $sql = "INSERT INTO Recipes (User_ID, Title, Short_description, Step_by_step, create_date, Portions) VALUES(?, ?, ?, ?, now(), ?)";
         /* connecting to database with parent-class and prepare the sql-quary*/ 
         $stmt = $this->connect()->prepare($sql);
         /* exexute the sql query*/
