@@ -7,13 +7,13 @@ include('includes/header.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $newPost = new PostController;
     $imgName = "empty";
-    if(isset($_POST['submitImg'])) {
+    
         $imgErr= $newPost->setPostImg();
         $imageData = file_get_contents($_FILES['foodImg']['tmp_name']);
         //echo $imgErr;
        // $imgName = "hej";
        // $imgName = $imgErr['newImgName'];
-    }
+    
     //$theName = $imgErr["newImgName"];
     $error = $newPost->postRecipe($imgErr);
     var_dump($error);
