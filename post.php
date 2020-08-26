@@ -11,15 +11,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $imgErr= $newPost->setPostImg();
         $imageData = file_get_contents($_FILES['foodImg']['tmp_name']);
         //echo $imgErr;
-        $imgName = "hej";
-        $imgName = $imgErr['newImgName'];
+       // $imgName = "hej";
+       // $imgName = $imgErr['newImgName'];
     }
-    $error = $newPost->postRecipe($imgName );
+    //$theName = $imgErr["newImgName"];
+    $error = $newPost->postRecipe($imgErr);
     var_dump($error);
     //printf($_POST);
-    echo "<br>";  
+    echo "<br>";
+    //$theName = $imgErr["newImgName"];
+    //echo "skoter+ " . $theName;
+    echo "array imgArr";
     var_dump($imgErr);
-    echo $_FILES['foodImg']['name'];
+    //echo $_FILES['foodImg']['name'];
+    //$test = $newPost->testReturn($imgErr);
+    //echo "<br> testar testReturn";
+    //var_dump($test);
+
    
 }
     

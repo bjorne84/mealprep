@@ -1,6 +1,20 @@
 <?php
 include_once('includes/functions.php');
 class PostController extends PostModel {
+
+
+    public function testReturn(&$bildArr) {
+
+        $testArray = [
+            'namnet' => $bildArr['newImgName'],
+            'temporara' => $bildArr['tmp_name']
+        ];
+
+
+       $imgDestination = 'gallery/' . $testArray['namnet']; 
+        move_uploaded_file($testArray['temporara'], $imgDestination);
+        return $testArray;
+    }
     
     public function setPostImg() {
         $imgData = [
@@ -54,16 +68,27 @@ class PostController extends PostModel {
         ];
 
         // add right location
-        $imgDestination = 'gallery/' . $newImgName; 
+        //$imgDestination = 'gallery/' . $newImgName; 
         //move_uploaded_file($imgData['tmp_name'], $imgDestination);
-        return $imgOutput; 
+        return $imgOutput;
+        unset($_REQUEST["submitImg"]); 
         exit();
 
     }
 
-    public function postRecipe($imgName) {
-        //return $this-> setPostImg();
-        $img_name = $imgName;
+    public function postRecipe(&$bildArr) {
+
+        
+        $imgArr = [
+            'namnet' => $bildArr['newImgName'],
+            'temporara' => $bildArr['tmp_name']
+        ];
+
+        /* Save image in gallery*/
+       $imgDestination = 'gallery/' . $imgArr['namnet']; 
+        move_uploaded_file($imgArr['temporara'], $imgDestination);
+     
+
         /* Data to sanitize with filter_input_array */
         $inputToFilter = [
             'headLine' => $_POST['headLine'],
@@ -90,7 +115,7 @@ class PostController extends PostModel {
             'short_description' => $Short_description,
             'step_by_step' => $Step_by_step,
             'port' => $inputToFilter['port'],
-            'image_Name' => $img_name 
+            'image_Name' => $imgArr['namnet']
         ];
           /* trim() function, delete whitespace*/
            $data = array_map('trim', $data);
@@ -102,8 +127,12 @@ class PostController extends PostModel {
             exit();
         } 
 
+        /* Insert image to the gallery*/
+        //$imgDestination = 'gallery/' . $imgArr['imgName']; 
+        //move_uploaded_file($imgArr['tempImgName'], $imgDestination);
+
          /* Send dataarray to method for insert of recipe in sql*/
-         if($this->setRecipe($data, true)) {
+         if($this->setRecipe($data)) {
             $data['message'] = 'success';
             return $data;
             /* header skall in här istället*/
