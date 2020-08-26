@@ -2,8 +2,6 @@
 abstract class PostModel extends Dbc {
     
     protected function setRecipe(&$arr) {
-
-        /* $createORmodify = skickar med ett värde av antingen */
       
         /* */
         $User_ID = $arr['User_ID'];

@@ -1,7 +1,7 @@
 <?php
 include_once('includes/functions.php');
 class PostController extends PostModel {
-
+    
     public function setPostImg() {
         $imgData = [
             'name' => $_FILES['foodImg']['name'],
@@ -61,8 +61,9 @@ class PostController extends PostModel {
 
     }
 
-    public function postRecipe() {
-
+    public function postRecipe($imgName) {
+        //return $this-> setPostImg();
+        $img_name = $imgName;
         /* Data to sanitize with filter_input_array */
         $inputToFilter = [
             'headLine' => $_POST['headLine'],
@@ -88,7 +89,8 @@ class PostController extends PostModel {
             'headLine' => $inputToFilter['headLine'],
             'short_description' => $Short_description,
             'step_by_step' => $Step_by_step,
-            'port' => $inputToFilter['port']
+            'port' => $inputToFilter['port'],
+            'image_Name' => $img_name 
         ];
           /* trim() function, delete whitespace*/
            $data = array_map('trim', $data);

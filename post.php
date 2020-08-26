@@ -6,17 +6,19 @@ include('includes/header.php');
 // check if form has ben sent and then start validate data ($_SERVER['REQUEST_METHOD'] == 'POST')
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $newPost = new PostController;
-    $error = $newPost->postRecipe();
+    $imgName = "empty";
     if(isset($_POST['submitImg'])) {
         $imgErr= $newPost->setPostImg();
-        var_dump($imgErr);
         $imageData = file_get_contents($_FILES['foodImg']['tmp_name']);
         //echo $imgErr;
+        $imgName = "hej";
+        $imgName = $imgErr['newImgName'];
     }
+    $error = $newPost->postRecipe($imgName );
     var_dump($error);
     //printf($_POST);
     echo "<br>";  
-    var_dump($_FILES['foodImg']);
+    var_dump($imgErr);
     echo $_FILES['foodImg']['name'];
    
 }
