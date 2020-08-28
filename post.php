@@ -132,7 +132,7 @@ $folder = $posts->getImageFolder();
     if(isset($_POST['delete'])) {
         if ($id_recipe == !null) {
             $newPost->deletePost($id_recipe);
-            //header("Location: post.php?delete=success");
+            header("Location: post.php?delete=success");
             echo "succes deleting";
     }
 }
