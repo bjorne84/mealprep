@@ -147,7 +147,7 @@ class PostController extends PostModel {
 
     public function deletePost($recipe) {
         if($this->deletePostSql($recipe)) {
-            unset($_REQUEST["del-btn"]);
+            unset($_REQUEST["delete"]);
             header("Location: post.php?delete=success");
             /*$data['message'] = 'success';
             return $data;*/

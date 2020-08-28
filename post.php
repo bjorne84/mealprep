@@ -73,7 +73,6 @@ $id = $_SESSION['user_id'];
 $blogPosts = $posts->getPostsBySessionId($id);
 $folder = $posts->getImageFolder();
 
-/* deletebutton*/
 
 
 ?>
@@ -81,37 +80,15 @@ $folder = $posts->getImageFolder();
     <h1 class="h1-left">Dina publicerade recept/inlägg</h1>
     <p>Du kan redigera eller radera tidigare gjorda inlägg.</p>
  <?php   
-   /* deletebutton*/
-  // $recipe = $item['Recipe_ID'];
-   if(isset($_POST['delete'])) {
-
-    $recipe = $_POST['recipe'];
-       //$newPost->deletePost($recipe);
-    $newPost->deletePost($recipe);
-   }
 
     foreach ($blogPosts as $item) {
     /* check if image is null and insert a stockimage*/
     if($item['imgPath'] === null || empty($item['imgPath'])) {
         $item['imgPath'] = "fallback.jpg";
     }
-    /* deletebutton
-    if(isset($_POST['delete'])) {
 
-    $recipe = $_POST['recipe'];
-       //$newPost->deletePost($recipe);
-    echo $newPost->deletePost($recipe);
-   }*/
     ?>
     
-<?php
-
-/*
-foreach //($blogPosts as $post) {
-    echo "<p>" . $post->getUserName() . "</p><br>" . "<h2>" . $post->getTitle() . "</h2><br><p>" .  $post->getRecipe_ID() . "</p>";
-}*/
-?>
-
     <article class="blogArticle userPost">
        
         <div class="userflex-article">
@@ -138,14 +115,28 @@ foreach //($blogPosts as $post) {
         </div>
         <div class="in-btn-wrapper">
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-            <input type="hidden" name="recipe" value="value=<?php $item['Recipe_ID']?>">
-            <button onclick="" type="submit" name="delete" id="btn-red" class="btn btn2 btn3">Redigera inlägg</button>
+            <input type="hidden" name="recipe" value>
+            <button onclick="" type="submit" name="update" id="btn-red" class="btn btn2 btn3">Redigera inlägg</button>
             <button onclick="" type="submit" name="delete" id="btn-del" class="btn btn2 btn3">Radera inlägg</button>
             </form>
         </div>
+        <?php // Spits out a variable that holds the recipe_id
+         $id_recipe = $item['Recipe_ID']; 
+         ?>
 
     </article>
+    <!--END OF FOREACH-loop-->
     <?php } ?>
+    <?php
+    /* Check if deletebutton is pressed*/
+    if(isset($_POST['delete'])) {
+        if ($id_recipe == !null) {
+            $newPost->deletePost($id_recipe);
+            //header("Location: post.php?delete=success");
+            echo "succes deleting";
+    }
+}
+    ?>
 </section>
 <?php
 include('includes/footer.php');
