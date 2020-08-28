@@ -3,34 +3,20 @@ $page_title = "Skapa och publicera recept";
 include('includes/header.php');
 ?>
 <?php
+$posts = new GetPostController;
+$newPost = new PostController;
 // check if form has ben sent and then start validate data ($_SERVER['REQUEST_METHOD'] == 'POST')
 if(isset($_POST['submitPost'])) {
-    $newPost = new PostController;
+ 
     $imgName = "empty";
 
     if(!empty($_FILES['foodImg']['tmp_name'])){
         $imgErr= $newPost->setPostImg();
         $imageData = file_get_contents($_FILES['foodImg']['tmp_name']);
     }
-        //echo $imgErr;
-       // $imgName = "hej";
-       // $imgName = $imgErr['newImgName'];
-    
-    //$theName = $imgErr["newImgName"];
+ 
     $error = $newPost->postRecipe($imgErr);
-    var_dump($error);
-    //printf($_POST);
-    echo "<br>";
-    //$theName = $imgErr["newImgName"];
-    //echo "skoter+ " . $theName;
-    echo "array imgArr";
-    var_dump($imgErr);
-    //echo $_FILES['foodImg']['name'];
-    //$test = $newPost->testReturn($imgErr);
-    //echo "<br> testar testReturn";
-    //var_dump($test);
-
-   
+  
 }
     
 ?>
@@ -78,86 +64,88 @@ if(isset($_POST['submitPost'])) {
         </fieldset>
     </form>
 </div>
+<?php
+
+/* GET THE USER_ID*/
+$id = $_SESSION['user_id'];
+
+
+$blogPosts = $posts->getPostsBySessionId($id);
+$folder = $posts->getImageFolder();
+
+/* deletebutton*/
+
+
+?>
 <section class="showBlogsUser">
     <h1 class="h1-left">Dina publicerade recept/inlägg</h1>
     <p>Du kan redigera eller radera tidigare gjorda inlägg.</p>
-    <article class="blogArticle userPost">
-        <div class="in-btn-wrapper">
-            <button onclick="" id="btn-red" class="btn btn2 btn3">Redigera inlägg</button>
-            <button onclick="" id="btn-del" class="btn btn2 btn3">Radera inlägg</button>
-        </div>
+ <?php   
+   /* deletebutton*/
+  // $recipe = $item['Recipe_ID'];
+   if(isset($_POST['delete'])) {
 
+    $recipe = $_POST['recipe'];
+       //$newPost->deletePost($recipe);
+    $newPost->deletePost($recipe);
+   }
+
+    foreach ($blogPosts as $item) {
+    /* check if image is null and insert a stockimage*/
+    if($item['imgPath'] === null || empty($item['imgPath'])) {
+        $item['imgPath'] = "fallback.jpg";
+    }
+    /* deletebutton
+    if(isset($_POST['delete'])) {
+
+    $recipe = $_POST['recipe'];
+       //$newPost->deletePost($recipe);
+    echo $newPost->deletePost($recipe);
+   }*/
+    ?>
+    
+<?php
+
+/*
+foreach //($blogPosts as $post) {
+    echo "<p>" . $post->getUserName() . "</p><br>" . "<h2>" . $post->getTitle() . "</h2><br><p>" .  $post->getRecipe_ID() . "</p>";
+}*/
+?>
+
+    <article class="blogArticle userPost">
+       
         <div class="userflex-article">
             <div class="left-side-blog">
-                <h2 class="blog-title">Kycklingspett</h2>
+                <h2 class="blog-title"><?php echo $item['Title']?></h2>
+                <div class="portioner"><p>Antal portioner:</p><h3><?php echo $item['Portions']?></h3></div>
                 <picture class="blogImg">
-                    <source type="image/webp" srcset="images/kycklingspett.webp">
-                    <source type="image/jpg" srcset="images/kycklingspett.jpg">
-                    <img class="blogImages" src="images/kycklingspett.jpg" alt="Bild på maträtt">
+                    <source type="image/webp" srcset="<?php echo $folder . $item['imgPath']?>">
+                    <img class="blogImages" src="<?php echo $folder . $item['imgPath']?>" alt="Bild på maträtt">
                 </picture>
 
                 <!-- Div with info about when it was created and by who-->
                 <div class="createdBlog">
-                    <p class="pCreated">Skapad av: <span class="spanCreated">Björn Edin</span></p>
-                    <p class="pCreated pdate"><span>2020-08-01 18:21</span></p>
+                    <p class="pCreated">Skapad av: <span class="spanCreated"><?php echo $item['Username']?></span></p>
+                    <p class="pCreated pdate"><span><?php echo $item['create_date']?></span></p>
                 </div>
-                <p class="blogText">En mycket god maträtt att göra, ganska enkelt samt hyffsat
-                    nyttigt.<br>
-                    Så frågan är har du råd att äta kyckling eller skall du föda upp egna kycklingar på
-                    balkongen?<br><br>
+                <p class="blogText"><?php echo $item['Short_description']?><?php echo $item['Recipe_ID']?>
                 </p>
                 <h3>Gör så här: </h3>
-                <p class="blogText">
-                    Lägg ca två grillspett av trä per person i blöt. Skär kycklingköttet i ca 2 cm stora
-                    bitar.
-                    Marinad: Blanda soja, kryddor och chilisås i en stor bunke. Lägg ner kycklingen och
-                    se till att
-                    alla bitar får marinad på sig.<br><br>
-                    Sätt ugnen på 250°C grill.
-                    Trä kycklingbitarna på spetten. Lägg dem på två bakpappersklädda plåtar. Pensla runt
-                    om med olja
-                    och strö över salt.<br><br>
-                    Sätt in en plåt åt gången högst upp i ugnen och grilla spetten 10–15 minuter. (Kan
-                    förberedas
-                    hit.)
+                <p class="blogText"><?php echo $item['Step_by_step']?>
                 </p>
             </div>
-            <div class="right-side-blog">
-                <h3>Ingredienser</h3>
-                <form method="POST">
-                    <label for="portions">Antalet portioner:</label><br>
-                    <input type="number" class="portions" name="portions" min="1" max="20">
-                    <input type="submit" class="btn" value="Välj">
-                </form>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th class="wide"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2</td>
-                            <td>dl</td>
-                            <td>Grädde</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>krm</td>
-                            <td>Svartpeppar</td>
-                        </tr>
-                        <tr>
-                            <td>250</td>
-                            <td>gram</td>
-                            <td>Champinjoner</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+
         </div>
+        <div class="in-btn-wrapper">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <input type="hidden" name="recipe" value="value=<?php $item['Recipe_ID']?>">
+            <button onclick="" type="submit" name="delete" id="btn-red" class="btn btn2 btn3">Redigera inlägg</button>
+            <button onclick="" type="submit" name="delete" id="btn-del" class="btn btn2 btn3">Radera inlägg</button>
+            </form>
+        </div>
+
     </article>
+    <?php } ?>
 </section>
 <?php
 include('includes/footer.php');

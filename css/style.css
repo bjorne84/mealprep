@@ -651,6 +651,16 @@ textarea {
     transition: ease-in 0.5ms;
 }
 
+
+/* Div för antalet portioner*/
+.portioner {
+    display: flex;
+    flex-direction: row;
+}
+.portioner h3 {
+    padding-left: 0.5em;
+}
+
 /* Ingredienser */
 
 .ingDiv {

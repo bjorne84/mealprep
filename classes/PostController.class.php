@@ -133,13 +133,32 @@ class PostController extends PostModel {
 
          /* Send dataarray to method for insert of recipe in sql*/
          if($this->setRecipe($data)) {
-            $data['message'] = 'success';
-            return $data;
+            unset($_REQUEST["submitPost"]);
+            header("Location: post.php?message=success");
+            /*$data['message'] = 'success';
+            return $data;*/
             /* header skall in här istället*/
          } else {
             die('något gick del med kopplingen till databasen, otur.');
          }
 
          
+    }
+
+    public function deletePost($recipe) {
+        if($this->deletePostSql($recipe)) {
+            unset($_REQUEST["del-btn"]);
+            header("Location: post.php?delete=success");
+            /*$data['message'] = 'success';
+            return $data;*/
+            /* header skall in här istället*/
+         } else {
+            die('något gick del med kopplingen till databasen, otur.');
+         }
+
+    }
+
+    public function returnRec($recipe) {
+        return $recipe;
     }
 }
