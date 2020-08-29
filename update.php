@@ -17,6 +17,7 @@ $folder = $posts->getImageFolder();
 /* recipe*/
 $recipeNum = $recipe['Recipe_ID'];
 
+$recipeNum = 0;
 
 // check if form has ben sent and then start validate data ($_SERVER['REQUEST_METHOD'] == 'POST')
 if(isset($_POST['submitPost'])) {
@@ -31,11 +32,12 @@ if(isset($_POST['submitPost'])) {
     $error = $newPost->postRecipe($imgErr, $recipeNum);
   
 }
+// href="update.php?update=<?php echo $item['Recipe_ID']?
     
 ?>
 <div id="account">
     <h1 class="h1-left">Uppdatera recept</h1>
-    <form class="forms" id="formCreate" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
+    <form class="forms" id="formCreate" action="update.php?update=<?php echo $_GET['update']?>" method="POST" enctype="multipart/form-data">
         <!--fält för formulär, hela den grå delen-->
         <fieldset id="field">
             <p class="pfield"></p>

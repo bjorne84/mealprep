@@ -22,6 +22,11 @@ class GetPostController extends PostModel {
         return $allPosts ;
     }
 
+    public function getAllPostsMaxFive() {
+        $allPosts = $this->maxFive();
+        return $allPosts;
+    }
+
     public function getAllUsers() {
         $allUsers = $this->getAllUsersDB();
         return $allUsers;

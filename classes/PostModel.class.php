@@ -33,14 +33,14 @@ abstract class PostModel extends Dbc {
         $imgPath = $arr['image_Name'];
         /* SQL-function now() have to be added direct in values and can not be binded with prepared statements*/
         $sql = "UPDATE Recipes
-        SET Title = '$title' , Short_description = '$short_description', Step_by_step = '$step_by_step', last_mod_date = now(), Portions = $port, imgPath = '$imgPath'
+        SET Title = '?' , Short_description = '?', Step_by_step = '?', last_mod_date = now(), Portions = '?', imgPath = '?'
     WHERE Recipe_ID = $recipeToUpdate";
-        $this->connect()->query($sql);
-        /* connecting to database with parent-class and prepare the sql-quary
+       // $this->connect()->query($sql);
+        /* connecting to database with parent-class and prepare the sql-quary*/
         $stmt = $this->connect()->prepare($sql);
-        /* exexute the sql query
+        /* exexute the sql query*/
         $stmt->execute([$title, $short_description, $step_by_step, $port, $imgPath]);
-        $stmt = $this->connect()->prepare($sql);*/ 
+        $stmt = $this->connect()->prepare($sql);
         return true;
     }
 
@@ -91,6 +91,20 @@ abstract class PostModel extends Dbc {
         JOIN users
             ON recipes.User_ID = users.User_ID
         ORDER BY recipes.create_date DESC";
+        $stmt = $this->connect()->query($sql);
+        /* fetch all is already set to associative array*/
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
+    /* Gets all post but max five from each user*/
+    protected function maxFive() {
+        $sql = "SELECT r.Recipe_ID, r.Title, r.Short_description, r.Step_by_step, r.create_date, 
+        r.last_mod_date, r.Portions, r.imgPath, users.Username 
+        FROM ( SELECT r.*, ROW_NUMBER() OVER(PARTITION BY User_ID ORDER BY create_date DESC) rn 
+        FROM recipes r ) r 
+        INNER JOIN users ON r.User_ID = users.User_ID 
+        WHERE r.rn <= 5 ORDER BY r.create_date DESC"; 
         $stmt = $this->connect()->query($sql);
         /* fetch all is already set to associative array*/
         $result = $stmt->fetchAll();
