@@ -17,7 +17,7 @@ $folder = $posts->getImageFolder();
 /* recipe*/
 $recipeNum = $recipe['Recipe_ID'];
 
-$recipeNum = 0;
+$recipeNum = 10110;
 
 // check if form has ben sent and then start validate data ($_SERVER['REQUEST_METHOD'] == 'POST')
 if(isset($_POST['submitPost'])) {
@@ -29,7 +29,7 @@ if(isset($_POST['submitPost'])) {
         $imageData = file_get_contents($_FILES['foodImg']['tmp_name']);
     }
  
-    $error = $newPost->postRecipe($imgErr, $recipeNum);
+    $error = $newPost->postRecipe($imgErr, $recipe );
   
 }
 // href="update.php?update=<?php echo $item['Recipe_ID']?
