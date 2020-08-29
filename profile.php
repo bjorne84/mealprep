@@ -3,21 +3,28 @@ $page_title = "recept att preppa frysen med!";
 include('includes/header.php');
 ?>
 <?php
-    if(isset($_SESSION['user_id'])) {
-        echo "<p>Du är inloggad</P>";
-    } else {
-        echo "<p>Du är INTE inloggad</P>";
-    }
+/* GET THE USER_ID*/
+$id = $_GET['id'];
+var_dump($_GET);
+echo $id;
 
-    $posts = new GetPostController();
-    $BlogPosts = $posts->getAllPosts(); 
-    $folder = $posts->getImageFolder();
+$posts = new GetPostController;
+$blogPosts = $posts->getPostsByUserId($id);
+$folder = $posts->getImageFolder();
+var_dump($blogPosts);
+$username = $posts->getUserName($id);
+var_dump($username);
+
+echo $username["username"];
 ?>
-<h1 id="topElement">Recept att preppa frysen med!</h1>
+<h1 id="topElement"><?php echo $username["username"]?> 's recept!</h1>
+
 <div class="mainWrapp">
     <div class="showBlogs">
-        <?php
-            foreach($BlogPosts as $item) {
+        <?php if ($blogPosts == null || empty($blogPosts)) {
+            echo "<h3> Användaren har inte skrivit något recept än. </h3>";
+        } else {
+            foreach($blogPosts as $item) {
     /* check if image is null and insert a stockimage*/
     if($item['imgPath'] === null || empty($item['imgPath'])) {
         $item['imgPath'] = "fallback.jpg";
@@ -45,7 +52,8 @@ include('includes/header.php');
            
         </article>
         <?php
-         } 
+        } 
+    } 
         ?>
     </div>
     <!--HAVE TO PUT ASIDE HERE BEFORE LAST DIV-->

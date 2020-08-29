@@ -70,7 +70,7 @@ if(isset($_POST['submitPost'])) {
 $id = $_SESSION['user_id'];
 
 
-$blogPosts = $posts->getPostsBySessionId($id);
+$blogPosts = $posts->getPostsByUserId($id);
 $folder = $posts->getImageFolder();
 
 
@@ -120,15 +120,14 @@ $folder = $posts->getImageFolder();
             <button onclick="" type="submit" name="delete" id="btn-del" class="btn btn2 btn3">Radera inlägg</button>
             </form>
         </div>
-        <?php // Spits out a variable that holds the recipe_id
-         $id_recipe = $item['Recipe_ID']; 
-         ?>
+
+      
 
     </article>
     <!--END OF FOREACH-loop-->
     <?php } ?>
     <?php
-    /* Check if deletebutton is pressed*/
+    /* Check if deletebutton is pressed
     if(isset($_POST['delete'])) {
         if ($id_recipe == !null) {
             $newPost->deletePost($id_recipe);
@@ -136,7 +135,7 @@ $folder = $posts->getImageFolder();
             echo "succes deleting";
     }
 }
-    ?>
+*/   ?>
 </section>
 <?php
 include('includes/footer.php');

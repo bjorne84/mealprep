@@ -91,8 +91,6 @@ abstract class UserModel extends Dbc {
         annan view-klassen*/
         $result = $stmt->fetchAll();
         return $result;
-    }
+    }    
 
-
-    
 }

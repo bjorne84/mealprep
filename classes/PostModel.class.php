@@ -35,6 +35,7 @@ abstract class PostModel extends Dbc {
       
     }
 
+
     /* Delete recipies */
     protected function deletePostSql($recipe) {
         $sql = "DELETE FROM recipes WHERE recipes.Recipe_ID = $recipe";
@@ -42,6 +43,40 @@ abstract class PostModel extends Dbc {
         return true;
 
     }
+
+    protected function getAllPostsDB() {
+        $sql = "SELECT recipes.Recipe_ID, recipes.Title, recipes.Short_description, recipes.Step_by_step, 
+        recipes.create_date, recipes.last_mod_date, recipes.Portions, recipes.imgPath, users.Username
+        FROM recipes 
+        JOIN users
+            ON recipes.User_ID = users.User_ID
+        ORDER BY recipes.create_date DESC";
+        $stmt = $this->connect()->query($sql);
+        /* fetch all is already set to associative array*/
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
+    protected function getAllUsersDB() {
+        $sql ="SELECT Username, User_ID FROM users ORDER BY User_ID DESC";
+        $stmt = $this->connect()->query($sql);
+          /* fetch all is already set to associative array*/
+          $result = $stmt->fetchAll();
+          return $result;
+
+    }
+
+    protected function getUserById($id) {
+        $sql = "SELECT username FROM users WHERE user_id = $id";
+        $stmt = $this->connect()->query($sql);
+        /* fetch all is already set to associative array*/
+        $result = $stmt->fetch();
+        return $result;
+
+    }
+
+    
+
 
     
 }
