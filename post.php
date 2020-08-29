@@ -4,7 +4,9 @@ include('includes/header.php');
 ?>
 <?php
 $posts = new GetPostController;
-$newPost = new PostController;
+$newPost = new PostController; 
+
+$recipeToUpdate = 0;
 // check if form has ben sent and then start validate data ($_SERVER['REQUEST_METHOD'] == 'POST')
 if(isset($_POST['submitPost'])) {
  
@@ -15,7 +17,7 @@ if(isset($_POST['submitPost'])) {
         $imageData = file_get_contents($_FILES['foodImg']['tmp_name']);
     }
  
-    $error = $newPost->postRecipe($imgErr);
+    $error = $newPost->postRecipe($imgErr, $recipeToUpdate);
   
 }
     
@@ -43,7 +45,7 @@ if(isset($_POST['submitPost'])) {
             <input type="file" id="foodImg" name="foodImg" accept="image/png, image/jpeg, image/gif, image/webp"><br><br>
             <label for="blogPost">Kort beskrivning:</label><br>
             <textarea id="blogPost" class="textArea" name="blogPost" cols="30" rows="4" 
-            placeholder="Beskriv kortfattat maträtten, är den lätt-lagad eller mer avancerad?">
+            placeholder="Beskriv kortfattat maträtten, är den lättlagad eller mer avancerad?">
             <?php if(isset($_POST['submitPost'])){echo $error['short_description'];}?>
             </textarea>
             <br>
@@ -114,11 +116,14 @@ $folder = $posts->getImageFolder();
 
         </div>
         <div class="in-btn-wrapper">
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <a class="a-btn a-update" href="update.php?update=<?php echo $item['Recipe_ID']?>">Redigera</a>
+            <a class="a-btn a-del" href="delete.php?del=<?php echo $item['Recipe_ID']?>">Radera</a>
+            
+            <!--<form action="<?php// echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <input type="hidden" name="recipe" value>
             <button onclick="" type="submit" name="update" id="btn-red" class="btn btn2 btn3">Redigera inlägg</button>
             <button onclick="" type="submit" name="delete" id="btn-del" class="btn btn2 btn3">Radera inlägg</button>
-            </form>
+            </form>-->
         </div>
 
       

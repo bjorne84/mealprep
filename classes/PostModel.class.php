@@ -10,6 +10,9 @@ abstract class PostModel extends Dbc {
         $step_by_step = $arr['step_by_step'];
         $port = $arr['port'];
         $imgPath = $arr['image_Name'];
+
+
+
         /* SQL-function now() have to be added direct in values and can not be binded with prepared statements*/
         $sql = "INSERT INTO Recipes (User_ID, Title, Short_description, Step_by_step, create_date, Portions, imgPath) VALUES(?, ?, ?, ?, now(), ?, ?)";
         /* connecting to database with parent-class and prepare the sql-quary*/ 
@@ -18,6 +21,30 @@ abstract class PostModel extends Dbc {
         $stmt->execute([$User_ID, $title, $short_description, $step_by_step, $port, $imgPath]);
         return true;
     }
+
+    /* Updates the recipe-post, sets the last_mod_date */
+    protected function setUpdateRecipe(&$arr, $recipeToUpdate) {
+    
+        //$User_ID = $arr['User_ID'];
+        $title = $arr['headLine'];
+        $short_description = $arr['short_description'];
+        $step_by_step = $arr['step_by_step'];
+        $port = $arr['port'];
+        $imgPath = $arr['image_Name'];
+        /* SQL-function now() have to be added direct in values and can not be binded with prepared statements*/
+        $sql = "UPDATE Recipes
+        SET Title = '$title' , Short_description = '$short_description', Step_by_step = '$step_by_step', last_mod_date = now(), Portions = $port, imgPath = '$imgPath'
+    WHERE Recipe_ID = $recipeToUpdate";
+        $this->connect()->query($sql);
+        /* connecting to database with parent-class and prepare the sql-quary
+        $stmt = $this->connect()->prepare($sql);
+        /* exexute the sql query
+        $stmt->execute([$title, $short_description, $step_by_step, $port, $imgPath]);
+        $stmt = $this->connect()->prepare($sql);*/ 
+        return true;
+    }
+
+
 
     /* Gets all recipes and its data from a specific user, return array*/
     protected function getRecipesFromUser($User_ID) {
@@ -34,7 +61,20 @@ abstract class PostModel extends Dbc {
         return $result;
       
     }
-
+    /* Get recipies by recipes id*/
+    protected function getRecipeByIdDB($recipeID) {
+        $sql = "SELECT recipes.Recipe_ID, recipes.Title, recipes.Short_description, recipes.Step_by_step, 
+        recipes.create_date, recipes.last_mod_date, recipes.Portions, recipes.imgPath, users.Username, users.User_ID 
+            FROM recipes 
+            JOIN users 
+                ON recipes.User_ID = users.User_ID 
+            WHERE recipes.Recipe_ID = ?";
+          $stmt = $this->connect()->prepare($sql);
+          $stmt->execute([$recipeID]);
+          /* Just on recipe = fetch and not fetch all*/
+          $result = $stmt->fetch();
+          return $result;
+    }
 
     /* Delete recipies */
     protected function deletePostSql($recipe) {

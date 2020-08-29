@@ -709,6 +709,37 @@ textarea {
     background-color: #393a39;
 }
 
+
+/* A-LINKS AS BUTTONS*/
+.a-btn {
+    background-color: #171817;
+    border: solid 1px #fff;
+    border-radius: 0.2em;
+    color: white;
+    padding: 0.3em 0.7em;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+
+.a-btn:hover {
+    background-color: #393a39;
+}
+
+.a-del {
+    margin-left: 1em;
+}
+.a-update {
+    background-color: #f16334;
+}
+
+.a-update:hover {
+    background-color:  #e74e1a;
+}
+
 /* FONT-SIZE PLACEHOLDER,
 special för att styla dessa psuedo-element*/
 

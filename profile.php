@@ -1,5 +1,5 @@
 <?php
-$page_title = "recept att preppa frysen med!";
+$page_title = "Alla bloggares profiler";
 include('includes/header.php');
 ?>
 <?php

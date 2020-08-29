@@ -1,9 +1,11 @@
 <?php
 include_once('includes/functions.php');
-class PostController extends PostModel {
+class PostController extends PostModel
+{
 
 
-    public function testReturn(&$bildArr) {
+    public function testReturn(&$bildArr)
+    {
 
         $testArray = [
             'namnet' => $bildArr['newImgName'],
@@ -11,12 +13,13 @@ class PostController extends PostModel {
         ];
 
 
-       $imgDestination = 'gallery/' . $testArray['namnet']; 
+        $imgDestination = 'gallery/' . $testArray['namnet'];
         move_uploaded_file($testArray['temporara'], $imgDestination);
         return $testArray;
     }
-    
-    public function setPostImg() {
+
+    public function setPostImg()
+    {
         $imgData = [
             'name' => $_FILES['foodImg']['name'],
             'type' => $_FILES['foodImg']['type'],
@@ -28,15 +31,15 @@ class PostController extends PostModel {
 
         $errorImg = '';
         /* check type 
-        First, exlode, create an array, with type, exluding image/jpg to separate image*/ 
-        $imgExt = explode("/", $imgData['type']); 
+        First, exlode, create an array, with type, exluding image/jpg to separate image*/
+        $imgExt = explode("/", $imgData['type']);
         // converting to lower case and grab last part of the array $imgExt
         $imgType = strtolower(end($imgExt));
         // Allowed file extensions
         $rightTypes = ['jpg', 'jpeg', 'gif', 'png', 'webp'];
-        
+
         // check allowed filetypes
-        if(!in_array($imgType,$rightTypes)) {
+        if (!in_array($imgType, $rightTypes)) {
             $errorImg = 'Otilåten filtyp på bilden!';
             return $errorImg;
             exit();
@@ -54,11 +57,11 @@ class PostController extends PostModel {
             exit();
         }
         /* add unique name
-        First, exlode, create an array, with type, exluding image/jpg to separate image*/ 
-        $imgNameArr = explode(".", $imgData['name']); 
+        First, exlode, create an array, with type, exluding image/jpg to separate image*/
+        $imgNameArr = explode(".", $imgData['name']);
         /* Current takes the first element int the array*/
         $imgName = current($imgNameArr);
-         /* Adds unique name, with the uniqid function, true adds even more chars*/
+        /* Adds unique name, with the uniqid function, true adds even more chars*/
         $newImgName  = $imgName . '_ID_' . uniqid("", false) . '.' . $imgType;
         /* Create array with name and tempname */
         $imgOutput = [
@@ -71,23 +74,23 @@ class PostController extends PostModel {
         //$imgDestination = 'gallery/' . $newImgName; 
         //move_uploaded_file($imgData['tmp_name'], $imgDestination);
         return $imgOutput;
-        unset($_REQUEST["submitImg"]); 
+        unset($_REQUEST["submitImg"]);
         exit();
-
     }
 
-    public function postRecipe(&$bildArr) {
+    public function postRecipe(&$bildArr, $recipeToUpdate)
+    {
 
-        
+
         $imgArr = [
             'namnet' => $bildArr['newImgName'],
             'temporara' => $bildArr['tmp_name']
         ];
 
         /* Save image in gallery*/
-       $imgDestination = 'gallery/' . $imgArr['namnet']; 
+        $imgDestination = 'gallery/' . $imgArr['namnet'];
         move_uploaded_file($imgArr['temporara'], $imgDestination);
-     
+
 
         /* Data to sanitize with filter_input_array */
         $inputToFilter = [
@@ -95,19 +98,19 @@ class PostController extends PostModel {
             'port' => $_POST['port']
         ];
 
-          /* POST-data get sanitizes from html/php/script-tags, but fields 
+        /* POST-data get sanitizes from html/php/script-tags, but fields 
           where we want users to be able to send in some html tags sanitzes 
           with other functions.*/
-          $inputToFilter = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
+        $inputToFilter = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
         /* Data where some html tags is allowed*/
-         
+
         $Short_description = $_POST['blogPost'];
         $Step_by_step = $_POST['blogPostHow'];
-         /* strip_tags */
-         $Short_description = strip_tags($Short_description, '<br><b><strong><a><i><h4>');
-         $Step_by_step = strip_tags($Step_by_step, '<br><b><strong><a><i><h4>');
-        
+        /* strip_tags */
+        $Short_description = strip_tags($Short_description, '<br><b><strong><a><i><h4>');
+        $Step_by_step = strip_tags($Step_by_step, '<br><b><strong><a><i><h4>');
+
         $data = [
             'message' => '',
             'User_ID' => $_SESSION['user_id'],
@@ -117,48 +120,72 @@ class PostController extends PostModel {
             'port' => $inputToFilter['port'],
             'image_Name' => $imgArr['namnet']
         ];
-          /* trim() function, delete whitespace*/
-           $data = array_map('trim', $data);
-    
-          /*If either of required fields are empty, error array with input-data and message.*/ 
-          if (empty($data['headLine']) || empty($data['short_description']) || empty($data['step_by_step'])) {
+        /* trim() function, delete whitespace*/
+        $data = array_map('trim', $data);
+
+        /*If either of required fields are empty, error array with input-data and message.*/
+        if (empty($data['headLine']) || empty($data['short_description']) || empty($data['step_by_step'])) {
             $data['message'] = 'Du måste skriva in titel, beskrivning, steg-för-steg (gör så här) och antal!';
             return $data;
             exit();
-        } 
+        }
 
         /* Insert image to the gallery*/
         //$imgDestination = 'gallery/' . $imgArr['imgName']; 
         //move_uploaded_file($imgArr['tempImgName'], $imgDestination);
 
-         /* Send dataarray to method for insert of recipe in sql*/
-         if($this->setRecipe($data)) {
-            unset($_REQUEST["submitPost"]);
-            header("Location: post.php?message=success");
+        /* If posttype = 0 it means thats a new post else an update*/
+        if ($recipeToUpdate === 0) {
+            /* Send dataarray to method for insert of recipe in sql*/
+            if ($this->setRecipe($data)) {
+                unset($_REQUEST["submitPost"]);
+                header("Location: post.php?message=success");
+                /*$data['message'] = 'success';
+            return $data;*/
+                /* header skall in här istället*/
+            } else {
+                die('något gick del med kopplingen till databasen, otur.');
+            }
+        } else {
+           // $hej = "hej";
+           // echo $recipeToUpdate ;
+           // header("Location: post.php?update=VERKARFUNGERA$recipeToUpdate");
+             /* Send dataarray and recipe id for update*/
+             if ($this->setUpdateRecipe($data, $recipeToUpdate)) {
+                unset($_REQUEST["submitPost"]);
+                header("Location: post.php?update=success");
+                /*$data['message'] = 'success';
+            return $data;*/
+                /* header skall in här istället*/
+            } else {
+                die('något gick del med kopplingen till databasen, otur.');
+            }
+        }
+    }
+
+    public function deletePost($recipe)
+    {
+        if ($this->deletePostSql($recipe)) {
+
+            // unset($_REQUEST["delete"]);
+            header("Location: post.php?delete=success");
             /*$data['message'] = 'success';
             return $data;*/
             /* header skall in här istället*/
-         } else {
+        } else {
             die('något gick del med kopplingen till databasen, otur.');
-         }
-
-         
+        }
     }
 
-    public function deletePost($recipe) {
-        if($this->deletePostSql($recipe)) {
-            unset($_REQUEST["delete"]);
-            //header("Location: post.php?delete=success");
-            /*$data['message'] = 'success';
-            return $data;*/
-            /* header skall in här istället*/
-         } else {
-            die('något gick del med kopplingen till databasen, otur.');
-         }
-
-    }
-
-    public function returnRec($recipe) {
+    public function returnRec($recipe)
+    {
         return $recipe;
+    }
+
+    public function getRecipeById($recipe_id)
+    {
+
+        $theRecipe = $this->getRecipeByIdDB($recipe_id);
+        return $theRecipe;
     }
 }
