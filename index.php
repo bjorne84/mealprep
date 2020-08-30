@@ -13,7 +13,8 @@ include('includes/header.php');
     //ALL POSTS
     //$BlogPosts = $posts->getAllPosts();
     // ALL POSTS BUT MAX FROM EACH USER, MySQL 8.0 NEEDS TO BE INSTALLED ON SERVER for this to work
-    $BlogPosts = $posts->getAllPostsMaxFive(); 
+   // $BlogPosts = $posts->getAllPostsMaxFive(); 
+    $BlogPosts = $posts->getAllPosts();
     $folder = $posts->getImageFolder();
 ?>
 <h1 id="topElement">Recept att preppa frysen med!</h1>

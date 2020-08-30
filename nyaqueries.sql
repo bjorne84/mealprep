@@ -139,7 +139,7 @@ INNER JOIN users ON r.User_ID = users.User_ID
 WHERE r.rn <= 5 ORDER BY r.create_date DESC; 
 
 
-
+/* right order */
 CREATE TABLE Recipes (
     Recipe_ID INT(11),
     User_ID INT(11) NOT NULL,
@@ -198,14 +198,19 @@ ALTER TABLE Users ADD CONSTRAINT Unique_Username UNIQUE (Username);
 
 
 
+/* END right order */
 
 
 
 
 
+Insert into Users (Forname, Surname , Email, Create_date, Username, Pass)
+    values('Björn', 'Edin', 'bjed1500@student.miun.se', now(), 'bjorne', 'password01');
 
 
-
+INSERT INTO Recipes (User_ID, Title, Short_description, Step_by_step, create_date)
+VALUES (1001, 'ägg med kaviar', 'Ett kokat ägg med kaviar, så enkelt men ack så gott.',
+'1. Koka upp rikligt med vatten.<br> 1. Lägg i ägget och koka i 5min<br>3. Servera med kaviar.', now());
 
 
 
