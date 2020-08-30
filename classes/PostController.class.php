@@ -202,8 +202,10 @@ class PostController extends PostModel
     }
 
     public function update($arr) {
-        
-
+        /* strip tags/script from field*/
+        $arr['Short_desc'] = strip_tags($arr['Short_desc'], '<br><b><strong><a><i><h4>');
+        $arr['Step_by_step'] = strip_tags($arr['Step_by_step'], '<br><b><strong><a><i><h4>');
+       // $arr = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             if($this->updateSql($arr)) {
                 return true;
             } else {

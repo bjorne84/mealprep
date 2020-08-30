@@ -1,6 +1,6 @@
 <?php
 
-include('includes/header.php');
+include('includes/config.php');
 $arrUpdate = new PostController;
 if(isset($_POST['submitPost'])) {
     $data = [

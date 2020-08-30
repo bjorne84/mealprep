@@ -57,11 +57,19 @@ abstract class PostModel extends Dbc {
         SET Title = '$title', Short_description = '$short_description', Step_by_step = '$step_by_step', last_mod_date = now(), Portions = $port
     WHERE Recipe_ID = $recipe";
         $this->connect()->query($sql);
+       // $this->connect()->query($sql);
         /* connecting to database with parent-class and prepare the sql-quary*/
-       // $stmt = $this->connect()->prepare($sql);
+       //$stmt = $this->connect()->prepare($sql);
         /* exexute the sql query*/
         //$stmt->execute([$title, $short_description, $step_by_step, $port]);
         //$stmt = $this->connect()->prepare($sql);
+
+
+        /* 
+          $sql = "UPDATE recipes
+        SET Title= ?, Short_description = ?, Step_by_step= ?, last_mod_date = now(), Portions = ?
+    WHERE Recipe_ID = $recipe";
+        */
         return true;
 
         
