@@ -40,12 +40,21 @@ class LogController extends UserModel {
     }
 
     public function setUserSession($user) {
+       // session_destroy();
         session_start();
         $_SESSION['user_id'] = $user['User_ID'];
         $_SESSION['username'] = $user['Username'];
         $_SESSION['email'] = $user['Email'];
-        header('Location: index.php?login=success');
-        exit();
+
+        if (headers_sent()) {
+            die("Redirect failed. Please click on this link: <a href='http://webb01.se/mealprep/index.php'>Vidare till start</a>");
+        }
+        else{
+            header('Location: index.php?login=success'); //funderar på att köra en if runt headern
+            exit();
+        }
+       
+    
     }
     public function logOut() {
         unset($_SESSION['user_id']);

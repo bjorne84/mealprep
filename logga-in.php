@@ -1,6 +1,6 @@
 <?php
 $page_title = "logga in";
-include('includes/header.php');
+include_once('includes/header.php');
 ?>
 <?php
 // check if form has ben sent and then start validate data ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $logInCheck = new LogController;
     $log = $logInCheck->logInUser();
     //var_dump($log);
-    var_dump($log);
+    //var_dump($log);
     }
 ?>
 <h1 class="h1-left">Logga in!</h1>
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label for="userName">Användarnamn:</label><br>
                         <input type="text" name="userName" id="userName" class="input" required><br>
                         <label for="password">Lösenord:</label><br>
-                        <input type="text" name="password" id="password" class="input"><br>
+                        <input type="password" name="password" id="password" class="input"><br>
                         <button type="submit" id="btn-create" name="submit-btn" class="btn">Logga in</button>
                         <a class="afield" href="">Glömt lösenordet?</a>
                     </fieldset>

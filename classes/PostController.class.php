@@ -51,7 +51,7 @@ class PostController extends PostModel
             exit();
         }
         // check size
-        if ($imgData['error'] >= 5000000) {
+        if ($imgData['size'] >= 5000000) {
             $errorImg = 'Bilden är för stor, max 5 MB!';
             return $errorImg;
             exit();
@@ -153,10 +153,15 @@ class PostController extends PostModel
              /* Send dataarray and recipe id for update*/
              if ($this->setUpdateRecipe($data, $recipeToUpdate)) {
                 unset($_REQUEST["submitPost"]);
-                header("Location: post.php?update=success");
-                /*$data['message'] = 'success';
-            return $data;*/
-                /* header skall in här istället*/
+
+                if (headers_sent()) {
+                    die("Redirect failed. Please click on this link: <a href='http://webb01.se/mealprep/index.php'>Vidare till start</a>");
+                }
+                else{
+                    header('Location: post.php?update=success"'); //funderar på att köra en if runt headern
+                    exit();
+                }
+               
             } else {
                 die('något gick del med kopplingen till databasen, otur.');
             }
@@ -167,11 +172,18 @@ class PostController extends PostModel
     {
         if ($this->deletePostSql($recipe)) {
 
-            // unset($_REQUEST["delete"]);
-            header("Location: post.php?delete=success");
-            /*$data['message'] = 'success';
-            return $data;*/
+
+
             /* header skall in här istället*/
+
+            if (headers_sent()) {
+                die("Redirect failed. Please click on this link: <a href='http://webb01.se/mealprep/index.php'>Vidare till start</a>");
+            }
+            else{
+                header("Location: post.php?delete=success");//funderar på att köra en if runt headern
+                exit();
+            }
+
         } else {
             die('något gick del med kopplingen till databasen, otur.');
         }
@@ -187,5 +199,16 @@ class PostController extends PostModel
 
         $theRecipe = $this->getRecipeByIdDB($recipe_id);
         return $theRecipe;
+    }
+
+    public function update($arr) {
+        
+
+            if($this->updateSql($arr)) {
+                return true;
+            } else {
+                return false;
+            }
+        
     }
 }

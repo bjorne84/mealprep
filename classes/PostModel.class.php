@@ -14,7 +14,7 @@ abstract class PostModel extends Dbc {
 
 
         /* SQL-function now() have to be added direct in values and can not be binded with prepared statements*/
-        $sql = "INSERT INTO Recipes (User_ID, Title, Short_description, Step_by_step, create_date, Portions, imgPath) VALUES(?, ?, ?, ?, now(), ?, ?)";
+        $sql = "INSERT INTO recipes (User_ID, Title, Short_description, Step_by_step, create_date, Portions, imgPath) VALUES(?, ?, ?, ?, now(), ?, ?)";
         /* connecting to database with parent-class and prepare the sql-quary*/ 
         $stmt = $this->connect()->prepare($sql);
         /* exexute the sql query*/
@@ -32,7 +32,7 @@ abstract class PostModel extends Dbc {
         $port = $arr['port'];
         $imgPath = $arr['image_Name'];
         /* SQL-function now() have to be added direct in values and can not be binded with prepared statements*/
-        $sql = "UPDATE Recipes
+        $sql = "UPDATE recipes
         SET Title = '?' , Short_description = '?', Step_by_step = '?', last_mod_date = now(), Portions = '?', imgPath = '?'
     WHERE Recipe_ID = $recipeToUpdate";
        // $this->connect()->query($sql);
@@ -42,6 +42,29 @@ abstract class PostModel extends Dbc {
         $stmt->execute([$title, $short_description, $step_by_step, $port, $imgPath]);
         $stmt = $this->connect()->prepare($sql);
         return true;
+    }
+
+    protected function updateSql(&$data) {
+
+        $title = $data['Title'];
+        $short_description = $data['Short_desc'];
+        $step_by_step = $data['Step_by_step'];
+        $recipe = $data['recipe_ID'];
+        $port = $data['port'];
+
+        /* SQL-function now() have to be added direct in values and can not be binded with prepared statements*/
+        $sql = "UPDATE recipes
+        SET Title = '$title', Short_description = '$short_description', Step_by_step = '$step_by_step', last_mod_date = now(), Portions = $port
+    WHERE Recipe_ID = $recipe";
+        $this->connect()->query($sql);
+        /* connecting to database with parent-class and prepare the sql-quary*/
+       // $stmt = $this->connect()->prepare($sql);
+        /* exexute the sql query*/
+        //$stmt->execute([$title, $short_description, $step_by_step, $port]);
+        //$stmt = $this->connect()->prepare($sql);
+        return true;
+
+        
     }
 
 
@@ -121,7 +144,7 @@ abstract class PostModel extends Dbc {
     }
 
     protected function getUserById($id) {
-        $sql = "SELECT username FROM users WHERE user_id = $id";
+        $sql = "SELECT Username FROM users WHERE user_id = $id";
         $stmt = $this->connect()->query($sql);
         /* fetch all is already set to associative array*/
         $result = $stmt->fetch();

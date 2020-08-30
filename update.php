@@ -17,7 +17,7 @@ $folder = $posts->getImageFolder();
 /* recipe*/
 $recipeNum = $recipe['Recipe_ID'];
 
-$recipeNum = 10110;
+//$recipeNum = 10110;
 
 // check if form has ben sent and then start validate data ($_SERVER['REQUEST_METHOD'] == 'POST')
 if(isset($_POST['submitPost'])) {
@@ -37,7 +37,7 @@ if(isset($_POST['submitPost'])) {
 ?>
 <div id="account">
     <h1 class="h1-left">Uppdatera recept</h1>
-    <form class="forms" id="formCreate" action="update.php?update=<?php echo $_GET['update']?>" method="POST" enctype="multipart/form-data">
+    <form class="forms" id="formCreate" action="update2.php" method="POST" enctype="multipart/form-data">
         <!--fält för formulär, hela den grå delen-->
         <fieldset id="field">
             <p class="pfield"></p>
@@ -50,7 +50,7 @@ if(isset($_POST['submitPost'])) {
             }
             ?>
             <label for="headLine">Namn på recept</label><br>
-            <input type="text" name="headLine" id="headLine" class="input" placeholder="Obligatoriskt"
+            <input type="text" name="Title" id="headLine" class="input" placeholder="Obligatoriskt"
             value=
             <?php if(isset($_POST['submitPost'])){ echo $error['headLine'];
         } else {
@@ -89,6 +89,7 @@ if(isset($_POST['submitPost'])) {
             echo $recipe['Step_by_step'];
         }?>
         </textarea>
+        <input type="hidden" name="recipe_ID" value="<?php echo $recipeNum?>">
             <br>
             <div class="ingDiv">
                 <label for="port">Antal portioner:</label><br>

@@ -139,7 +139,16 @@ class CreateUserController extends UserModel {
            $password = $inArr['password'];
         //Register user in database
          if ($this->regUserInDB($forname, $surName, $email, $IP_Address, $userName, $password)) {
-             header('Location: logga-in.php');
+            
+            
+            if (headers_sent()) {
+                die("Redirect failed. Please click on this link: <a href='http://webb01.se/mealprep/logga-in.php'>Vidare till logga in</a>");
+            }
+            else{
+                header('Location: logga-in.php'); //funderar på att köra en if runt headern
+                exit();
+            }
+           
          }  else {
              die('Någonting gick fel när användaren skulle sparas i databasen.');
          }

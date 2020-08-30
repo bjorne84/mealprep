@@ -57,11 +57,11 @@ abstract class UserModel extends Dbc {
     protected function regUserInDB($forname, $surName, $email, $IP_Address, $userName, $password) {
 
         /* SQL-function now() have to be added direct in values and can not be binded with prepared statements*/
-        $sql = "INSERT INTO users (Forname, Surname, Email, IP_Address, Create_date, Username, Pass) VALUES(?, ?, ?, ?, now(), ?, ?)";
+        $sql = "INSERT INTO users (Forname, Surname, Email, Create_date, Username, Pass) VALUES(?, ?, ?, now(), ?, ?)";
         /* connecting to database with parent-class and prepare the sql-quary*/ 
         $stmt = $this->connect()->prepare($sql);
         /* exexute the sql query*/
-        $stmt->execute([$forname, $surName, $email, $IP_Address, $userName, $password]);
+        $stmt->execute([$forname, $surName, $email, $userName, $password]);
         return true;
     }
 

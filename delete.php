@@ -1,5 +1,5 @@
 <?php
-
+require_once('classes/PostController.class.php');
 $page_title = "Delete";
 include('includes/header.php');
 
