@@ -5,7 +5,7 @@ abstract class UserModel extends Dbc {
     /* Connects to the database and with prepared statements ask if
     email exist. Returns true or false.*/
     protected function findEmail($email) {
-        $sql = "SELECT * FROM Users WHERE Email = ?";
+        $sql = "SELECT * FROM users WHERE Email = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$email]);
 
@@ -20,7 +20,7 @@ abstract class UserModel extends Dbc {
       /* Connects to the database and with prepared statements ask if
     Username  exist. Returns true or false.*/
     protected function findUserName($user) {
-        $sql = "SELECT * FROM Users WHERE Username  = ?";
+        $sql = "SELECT * FROM users WHERE Username  = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$user]);
 
@@ -41,7 +41,7 @@ abstract class UserModel extends Dbc {
     
     Returns true or false.*/
     protected function existInUserTable($check, $tablename) {
-        $sql = "SELECT * FROM Users WHERE ".$tablename."  = ?";
+        $sql = "SELECT * FROM users WHERE ".$tablename."  = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$check]);
 
@@ -57,7 +57,7 @@ abstract class UserModel extends Dbc {
     protected function regUserInDB($forname, $surName, $email, $IP_Address, $userName, $password) {
 
         /* SQL-function now() have to be added direct in values and can not be binded with prepared statements*/
-        $sql = "INSERT INTO Users (Forname, Surname, Email, IP_Address, Create_date, Username, Pass) VALUES(?, ?, ?, ?, now(), ?, ?)";
+        $sql = "INSERT INTO users (Forname, Surname, Email, IP_Address, Create_date, Username, Pass) VALUES(?, ?, ?, ?, now(), ?, ?)";
         /* connecting to database with parent-class and prepare the sql-quary*/ 
         $stmt = $this->connect()->prepare($sql);
         /* exexute the sql query*/
@@ -67,7 +67,7 @@ abstract class UserModel extends Dbc {
 
     /* Log the user in, check if password matches and returns array of userdata*/
     protected function logIn($user, $password) {
-        $sql = "SELECT * FROM Users WHERE Username  = ?";
+        $sql = "SELECT * FROM users WHERE Username  = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$user]);
 
